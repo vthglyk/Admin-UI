@@ -1,4 +1,5 @@
 import React from 'react';
+import SignInModal from '../modal/specific/sign-in-modal'
 
 const UserManagement = () => {
 
@@ -9,7 +10,9 @@ const UserManagement = () => {
                 <div className="icon">
                     <img src="images/suitcase.png"/>
                 </div>
-                <a className="login button" href="/user/login">Sign In</a>
+                <SignInModal />
+
+                {/*<a className="login button" href="/user/login">Sign In</a>*/}
                 <a className="register button" href="/register">Register</a>
             </div>
         </div>

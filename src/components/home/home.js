@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 import Header from './header';
-import UserManagement from './UserManagement';
-import Footer from './Footer';
+import UserManagement from './user-management';
+import Footer from './footer';
 
 const Home = () => {
     return (
-        <div>
+        <Fragment>
             <Header />
             <UserManagement />
             <Footer />
-        </div>
+        </Fragment>
     );
 };
 
