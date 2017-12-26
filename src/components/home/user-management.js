@@ -1,7 +1,7 @@
 import React from 'react';
 import ModalButton from '../modal/generic/modal-button';
 import SignInModal from '../modal/specific/sign-in-modal'
-import RegisterModal from '../modal/specific/register-modal'
+import UserRegisterModal from '../modal/specific/user-registration-modal'
 
 const UserManagement = () => {
     return (
@@ -18,7 +18,7 @@ const UserManagement = () => {
                                  target="#register-modal" text="Register" />
                 </div>
                 <SignInModal />
-                <RegisterModal />
+                <UserRegisterModal />
                 {/*<a className="login button" href="/user/login">Sign In</a>*/}
                 {/*<a className="register button" href="/register">Register</a>*/}
             </div>
