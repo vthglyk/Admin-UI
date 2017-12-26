@@ -1,8 +1,9 @@
 import React, { Fragment, Component } from 'react';
-import { connect } from 'react-redux';
-import { selectUserRole } from '../../../actions/index';
 import Select from 'react-select';
-import ModalButton from '../generic/modal-button';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { selectUserRole } from '../../../actions/index';
+import { fetchUserRoles } from '../../../actions/index';
 import Modal from '../generic/modal';
 import ModalHeader from '../generic/modal-header';
 import ModalBody from '../generic/modal-body';
@@ -10,8 +11,18 @@ import ModalFooter from '../generic/modal-footer';
 
 class RegisterModal extends Component {
 
+    componentWillMount() {
+        this.props.fetchUserRoles();
+    }
+
     handleChange = selectedOption => {
         this.props.selectUserRole(selectedOption);
+    };
+
+    roles = () => {
+        return _.map(this.props.userRoles, (role) => {
+            return({ value: role.enumValue, label: role.enumText });
+        });
     };
 
     render() {
@@ -45,10 +56,8 @@ class RegisterModal extends Component {
                                 name="user-role-selector"
                                 value={selectedUserRole.value}
                                 onChange={this.handleChange}
-                                options={[
-                                    { value: 'one', label: 'One' },
-                                    { value: 'two', label: 'Two' },
-                                ]}
+                                options={this.roles()}
+                                placeholder="Choose your User Role"
                             />
                         </div>
                         {/*<div className="alert alert-danger">Invalid Email!</div>*/}
@@ -67,7 +76,10 @@ class RegisterModal extends Component {
 }
 
 function mapStateToProps(state) {
-    return { selectedUserRole: state.selectedUserRole };
+    return {
+        selectedUserRole: state.selectedUserRole,
+        userRoles: state.userRoles
+    };
 }
 
-export default connect(mapStateToProps, { selectUserRole })(RegisterModal);
+export default connect(mapStateToProps, { selectUserRole, fetchUserRoles })(RegisterModal);

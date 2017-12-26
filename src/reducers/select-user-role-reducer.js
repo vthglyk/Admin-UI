@@ -1,8 +1,6 @@
 import { SELECT_USER_ROLE } from '../actions/index';
 
-const INITIAL_STATE = { value: 'two', label: 'Two' };
-
-export default function(state = INITIAL_STATE, action) {
+export default function(state = {}, action) {
     switch(action.type) {
         case SELECT_USER_ROLE:
             if (action.payload)
