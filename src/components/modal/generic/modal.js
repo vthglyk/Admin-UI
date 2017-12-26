@@ -1,43 +1,45 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { store } from '../../../index';
-import { Provider } from 'react-redux';
+import React from 'react';
+import AppendBodyComponent from '../../append-body-component';
 import ModalContent from './modal-content';
+import uuid from '../../../helpers/uuid';
 
-export default class Modal extends Component {
+export default class Modal extends AppendBodyComponent {
+    constructor(props) {
+        super(props);
 
-    componentDidMount() {
-        this.modaldiv = document.createElement('div');
-        this.modaldiv.id = this.props.id;
-        this.modaldiv.className = "modal fade";
-        this.modaldiv.role = "dialog";
-        document.body.appendChild(this.modaldiv);
-        this._render();
+        this.uniqueId = props.id ? props.id : uuid();
+        this.setAppendElementId(this.uniqueId);
     }
 
-    componentWillUpdate() {
-        this._render();
+    componentDidMount() {
+        this.updateSelf();
+    }
+
+    componentDidUpdate() {
+        this.updateSelf();
     }
 
     componentWillUnmount() {
-        ReactDOM.unmountComponentAtNode(this.modaldiv);
-        document.body.removeChild(this.modaldiv);
+        this.removeAppendElement();
     }
 
-    _render() {
-        ReactDOM.render(
-            <Provider store = {store}>
+    updateSelf() {
+        this.updateAppendElement(
+            <div key={this.uniqueId}
+                 id={this.uniqueId}
+                 className="modal fade"
+                 role="dialog">
                 <div className="modal-dialog">
                     <ModalContent>
                         {this.props.children}
                     </ModalContent>
                 </div>
-            </Provider>,
-            this.modaldiv
+            </div>
         );
     }
 
     render() {
-        return <noscript />;
+        // Rendering is managed by ourselves since this appends a component to the DOM
+        return null;
     }
 }

@@ -6,11 +6,8 @@ import ModalBody from '../generic/modal-body';
 import ModalFooter from '../generic/modal-footer';
 
 const SignInModal = () => {
-
     return(
         <Fragment>
-            <ModalButton id="sign-in-btn" extraClasses="sign-in-btn"
-                         target="#sign-in-modal" text="Sign In"/>
             <Modal id="sign-in-modal">
                 <ModalHeader title="Sign In" />
                 <ModalBody id="sign-in-modal-body">
@@ -28,9 +25,9 @@ const SignInModal = () => {
                 </ModalBody>
                 <ModalFooter>
                     <div className="col-sm-12 controls">
-                        <button id="singlebutton" type="submit"
-                                name="singlebutton" className="btn btn-success">Login</button>
-                        <a href="#" className="reminder">Forgot your password?</a>
+                        <button id="sign-in-btn" name="sign-in-btn"
+                                className="btn btn-success">Login</button>
+                        {/*<a href="#" class="reminder">Forgot your password?</a>*/}
                     </div>
                 </ModalFooter>
             </Modal>

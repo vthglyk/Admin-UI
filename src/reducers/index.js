@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import SelectUserRoleReducer from './select-user-role-reducer';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+    selectedUserRole: SelectUserRoleReducer
 });
 
 export default rootReducer;
