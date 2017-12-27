@@ -3,7 +3,7 @@ import ModalButton from '../modal/generic/modal-button';
 import SignInModal from '../modal/specific/sign-in-modal'
 import UserRegisterModal from '../modal/specific/user-registration-modal'
 
-const UserManagement = () => {
+const UserManagement = (props) => {
     return (
         <div className="content">
             <div className="wrapper platform">
@@ -15,12 +15,10 @@ const UserManagement = () => {
                     <ModalButton id="sign-in-btn" extraClasses="login button"
                                  target="#sign-in-modal" text="Sign In"/>
                     <ModalButton id="register-btn" extraClasses="register button"
-                                 target="#register-modal" text="Register" />
+                                 target="#user-registration-modal" text="Register" />
                 </div>
                 <SignInModal />
-                <UserRegisterModal />
-                {/*<a className="login button" href="/user/login">Sign In</a>*/}
-                {/*<a className="register button" href="/register">Register</a>*/}
+                <UserRegisterModal history={props.history}/>
             </div>
         </div>
 

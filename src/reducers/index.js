@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import SelectUserRoleReducer from './select-user-role-reducer';
+import { reducer as formReducer } from 'redux-form';
 import UserRolesReducer from './user-roles-reducer';
+import UserRegistrationReducer from './user-registration-reducer';
 
 const rootReducer = combineReducers({
-    selectedUserRole: SelectUserRoleReducer,
-    userRoles: UserRolesReducer
+    userRoles: UserRolesReducer,
+    userRegistration: UserRegistrationReducer,
+    form: formReducer
 });
 
 export default rootReducer;

@@ -3,11 +3,11 @@ import Header from './header';
 import UserManagement from './user-management';
 import Footer from './footer';
 
-const Home = () => {
+const Home = (props) => {
     return (
         <Fragment>
             <Header />
-            <UserManagement />
+            <UserManagement history={props.history}/>
             <Footer />
         </Fragment>
     );
