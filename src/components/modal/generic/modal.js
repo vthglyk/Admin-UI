@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../../../index';
-import AppendBodyComponent from '../../append-body-component';
+import AppendBodyComponent from '../../../helpers/append-body-component';
 import ModalContent from './modal-content';
 import uuid from '../../../helpers/uuid';
 
@@ -28,16 +28,7 @@ export default class Modal extends AppendBodyComponent {
     updateSelf() {
         this.updateAppendElement(
             <Provider store={store} key={this.uniqueId}>
-                <div
-                    id={this.uniqueId}
-                    className="modal fade"
-                    role="dialog">
-                    <div className="modal-dialog">
-                        <ModalContent>
-                            {this.props.children}
-                        </ModalContent>
-                    </div>
-                </div>
+                {this.props.children}
             </Provider>
         );
     }

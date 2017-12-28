@@ -120,16 +120,6 @@ a {
     margin-right: 2em;
 }
 
-.content .login.button:hover {
-    cursor: pointer;
-    background-color: rgb(119, 197, 238);
-}
-
-.content .register.button:hover {
-    cursor: pointer;
-    background-color: rgb(109, 187, 228);
-}
-
 .footer {
     width: 100%;
 
@@ -145,7 +135,6 @@ a {
 }
 
 .footer img {
-
     height: 60px;
 }
 
@@ -166,4 +155,8 @@ a {
 }
 .input-group {
     margin-bottom: 0.5em;
+}
+
+.modal {
+
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { imageFolder } from "../../configuration/conf";
+import { imageFolder } from "../../configuration";
 
 const Header = () => {
     return (
