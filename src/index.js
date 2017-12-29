@@ -4,14 +4,20 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers';
 import Home from './components/home/home';
 import Success from './components/success';
-import UserControlPanel from './components/user-control-panel';
+import UserControlPanel from './components/user-cpanel/user-control-panel';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+export const store = createStore(reducers, composeWithDevTools(
+    applyMiddleware(promise),
+    // other store enhancers if any
+));
 
-export const store = createStoreWithMiddleware(reducers);
+// const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
+// export const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,4 +29,4 @@ ReactDOM.render(
           </Switch>
       </Router>
   </Provider>
-  , document.querySelector('.container'));
+  , document.querySelector('.my-container'));
