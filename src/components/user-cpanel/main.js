@@ -9,14 +9,9 @@ const Main = () => {
     return(
         <div className="main cpanel">
             <div className="container">
-                {/*<Tabs defaultActiveKey={2} id="uncontrolled-tab-example">*/}
-                {/*<Tab eventKey={1} title="Tab 1">Tab 1 content</Tab>*/}
-                {/*<Tab eventKey={2} title="Tab 2">Tab 2 content</Tab>*/}
-                {/*<Tab eventKey={3} title="Tab 3" disabled>Tab 3 content</Tab>*/}
-                {/*</Tabs>*/}
                 <Tab.Container id="tabbable-menu" defaultActiveKey="user-details">
                     <Row className="clearfix">
-                        <Col md={3}>
+                        <Col md={3} lg={3}>
                             <Nav bsStyle="pills" stacked className="sidebar panel-primary shadow">
                                 <NavItem eventKey="user-details">
                                     User Details
@@ -32,7 +27,7 @@ const Main = () => {
                                 </NavItem>
                             </Nav>
                         </Col>
-                        <Col md={9}>
+                        <Col md={9} lg={9}>
                             <Tab.Content animation className="clearfix">
                                 <Tab.Pane eventKey="user-details">
                                     <UserDetails />

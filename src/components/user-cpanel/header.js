@@ -1,12 +1,12 @@
 import React from 'react';
 import { ButtonGroup, Button, DropdownButton, MenuItem } from 'react-bootstrap';
-import { imageFolder } from "../../configuration";
+import { IMAGE_FOLDER } from "../../configuration";
 
 const Header = () => {
     return(
         <div className="header shadow cpanel">
             <div className="container">
-                <img className="logo" src={`${imageFolder}/logo-1.1.png`} />
+                <img className="logo" src={`${IMAGE_FOLDER}/logo-1.1.png`} />
                 <span className="title">User Dashboard</span>
 
                 <ButtonGroup className="logout">

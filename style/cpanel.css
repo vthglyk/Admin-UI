@@ -83,10 +83,12 @@ a {
 /*}*/
 
 .main.cpanel .sidebar {
-
-    width: 190px;
     border: 1px solid rgba(19, 97, 138, 0.5);
     border-radius: 4px;
+}
+
+.main.cpanel .sidebar li {
+    width: 215px;
 }
 
 .main.cpanel .sidebar .active {

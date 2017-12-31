@@ -4,6 +4,8 @@ import { Field, reduxForm } from "redux-form";
 import { Modal, Button, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 import { LOGIN_MODAL } from "../../../reducers/modal-reducer";
 import { userLogin, changeModalState } from "../../../actions";
+import { fieldError } from "../../../helpers/errors";
+import { CPANEL_URL } from "../../../configuration";
 
 class SignInModal extends Component {
 
@@ -16,10 +18,14 @@ class SignInModal extends Component {
     }
 
     onSubmit(props) {
-        this.props.userLogin(props, () => {
-            console.log(props);
-            this.props.changeModalState(LOGIN_MODAL, false);
-            this.props.history.push('/administration/user/cpanel');
+        this.props.userLogin(props, (res) => {
+            const pattern = new RegExp('error');
+
+            if (!pattern.test(res.request.responseURL)) {
+                this.props.changeModalState(LOGIN_MODAL, false);
+                this.props.history.push(CPANEL_URL);
+            }
+
         });
     }
 
@@ -39,7 +45,7 @@ class SignInModal extends Component {
     }
 
     render() {
-        const { handleSubmit, modalState } = this.props;
+        const { handleSubmit, modalState, userLoginState } = this.props;
 
         return(
             <Fragment>
@@ -61,12 +67,12 @@ class SignInModal extends Component {
                                 icon="user" placeholder="Username"
                                 name="username" component={this.renderInputField}
                             />
-
                             <Field
-                                type="text"
+                                type="password"
                                 icon="lock" placeholder="Password"
                                 name="password" component={this.renderInputField}
                             />
+                            {fieldError(userLoginState.error)}
                         </Modal.Body>
                         <Modal.Footer>
                             <Button type="submit" bsStyle="primary">Login</Button>
@@ -81,7 +87,8 @@ class SignInModal extends Component {
 
 function mapStateToProps(state) {
     return {
-        modalState: state.modalState
+        modalState: state.modalState,
+        userLoginState: state.userLoginState
     };
 }
 

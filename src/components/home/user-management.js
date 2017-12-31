@@ -1,7 +1,7 @@
 import React from 'react';
 import SignInModal from '../modal/specific/sign-in-modal'
 import UserRegisterModal from '../modal/specific/user-registration-modal'
-import { imageFolder } from '../../configuration';
+import { IMAGE_FOLDER } from '../../configuration';
 
 const UserManagement = (props) => {
     return (
@@ -9,11 +9,11 @@ const UserManagement = (props) => {
             <div className="wrapper platform">
                 <div className="title">User Management</div>
                 <div className="icon">
-                    <img src={`${imageFolder}/suitcase.png`} />
+                    <img src={`${IMAGE_FOLDER}/suitcase.png`} />
                 </div>
                 <div>
-                    <SignInModal />
-                    <UserRegisterModal history={props.history}/>
+                        <SignInModal history={props.history}/>
+                        <UserRegisterModal history={props.history}/>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ import { Modal, Button, FormControl, InputGroup, Glyphicon } from 'react-bootstr
 import RFReactSelect from "../../../helpers/redux-form-react-selector-integrator";
 import { fetchUserRoles, registerUser, changeModalState } from "../../../actions";
 import { USER_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
+import { fieldError } from "../../../helpers/errors";
 
 class UserRegistrationModal extends Component {
 
@@ -33,14 +34,6 @@ class UserRegistrationModal extends Component {
         });
     };
 
-    fieldError = (error) => {
-        return (
-            error ?
-                <div className="alert alert-danger">{error}</div> :
-                ""
-        );
-    };
-
     renderInputField(field) {
         const { input, type, placeholder, icon } = field;
 
@@ -58,7 +51,7 @@ class UserRegistrationModal extends Component {
     }
 
     render() {
-        const { userRegistration : { validationErrors, errorMessage },
+        const { userRegistrationState : { validationErrors, errorMessage },
             userRoles, modalState, handleSubmit } = this.props;
 
         return(
@@ -76,25 +69,25 @@ class UserRegistrationModal extends Component {
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                         <Modal.Body>
                             <Field
-                                type="text"
+                                type="text" error={validationErrors.validUsername}
                                 icon="user" placeholder="Username"
                                 name="validUsername" component={this.renderInputField}
                             />
-                            {this.fieldError(validationErrors.validUsername)}
+                            {fieldError(validationErrors.validUsername)}
 
                             <Field
                                 type="password"
                                 icon="lock" placeholder="Password"
                                 name="validPassword" component={this.renderInputField}
                             />
-                            {this.fieldError(validationErrors.validPassword)}
+                            {fieldError(validationErrors.validPassword)}
 
                             <Field
                                 type="text"
                                 icon="envelope" placeholder="Email"
                                 name="recoveryMail" component={this.renderInputField}
                             />
-                            {this.fieldError(validationErrors.recoveryMail)}
+                            {fieldError(validationErrors.recoveryMail)}
 
                             <InputGroup id="user-role-input-group">
                                 <Field
@@ -103,9 +96,9 @@ class UserRegistrationModal extends Component {
                                     name="role" component={RFReactSelect}
                                 />
                             </InputGroup>
-                            {this.fieldError(userRoles.error)}
-                            {this.fieldError(validationErrors.role)}
-                            {this.fieldError(errorMessage)}
+                            {fieldError(userRoles.error)}
+                            {fieldError(validationErrors.role)}
+                            {fieldError(errorMessage)}
 
                         </Modal.Body>
                         <Modal.Footer>
@@ -121,7 +114,7 @@ class UserRegistrationModal extends Component {
 function mapStateToProps(state) {
     return {
         userRoles: state.userRoles,
-        userRegistration: state.userRegistration,
+        userRegistrationState: state.userRegistrationState,
         modalState: state.modalState
     };
 }

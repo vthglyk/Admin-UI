@@ -7,8 +7,8 @@ import ModalReducer from './modal-reducer';
 
 const rootReducer = combineReducers({
     userRoles: UserRolesReducer,
-    userRegistration: UserRegistrationReducer,
-    userLogin: UserLoginReducer,
+    userRegistrationState: UserRegistrationReducer,
+    userLoginState: UserLoginReducer,
     modalState: ModalReducer,
     form: formReducer
 });
