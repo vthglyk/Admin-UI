@@ -20,9 +20,9 @@ RFReactSelect.propTypes = {
     className: PropTypes.string
 };
 
-export default function RFReactSelect({ input , options, multi, className, placeholder }) {
+export default function RFReactSelect({ input , options, multi, ...props }) {
     const { name, value, onBlur, onChange, onFocus } = input;
-    const transformedValue = transformValue(value, options, multi);
+    const transformedValue = transformValue(props.defaultValue, value, options, multi);
     return (
         <Select
             valueKey="value"
@@ -36,8 +36,7 @@ export default function RFReactSelect({ input , options, multi, className, place
             }
             onBlur={() => onBlur(value)}
             onFocus={onFocus}
-            className={className}
-            placeholder={placeholder}
+            {...props}
         />
     );
 }
@@ -67,7 +66,9 @@ function multiChangeHandler(func) {
  * * For multi select, Redux Form keeps the value as array of strings, while React Select
  * wants the array of values in the form [{ value: "grape", label: "Grape" }]
  */
-function transformValue(value, options, multi) {
+function transformValue(defaultValue, insertedValue, options, multi) {
+    const value = (defaultValue && !insertedValue) ? defaultValue : insertedValue;
+
     if (multi && typeof value === 'string') return [];
 
     const filteredOptions = options.filter(option => {

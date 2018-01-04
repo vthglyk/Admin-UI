@@ -4,7 +4,7 @@ import { Field, reduxForm } from "redux-form";
 import { Modal, Button, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 import { LOGIN_MODAL } from "../../../reducers/modal-reducer";
 import { userLogin, changeModalState } from "../../../actions";
-import { fieldError } from "../../../helpers/errors";
+import { FieldError } from "../../../helpers/errors";
 import { CPANEL_URL } from "../../../configuration";
 
 class SignInModal extends Component {
@@ -72,7 +72,7 @@ class SignInModal extends Component {
                                 icon="lock" placeholder="Password"
                                 name="password" component={this.renderInputField}
                             />
-                            {fieldError(userLoginState.error)}
+                            {FieldError(userLoginState.error)}
                         </Modal.Body>
                         <Modal.Footer>
                             <Button type="submit" bsStyle="primary">Login</Button>

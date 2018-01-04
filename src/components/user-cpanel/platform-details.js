@@ -1,8 +1,9 @@
 import React from 'react';
+import PlatformRegistrationModal from '../modals/specific/platform-registration-modal';
 
 const PlatformDetails = ()=> {
     return(
-        <h3>Platform Details</h3>
+        <PlatformRegistrationModal />
     );
 };
 
