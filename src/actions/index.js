@@ -5,6 +5,7 @@ import { ROOT_URL } from "../configuration/index";
 export const FETCH_USER_ROLES = 'FETCH_USER_ROLES';
 export const REGISTER_USER = 'REGISTER_USER';
 export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
 export const CHANGE_MODAL_STATE = 'CHANGE_MODAL_STATE';
 export const FETCH_INFORMATION_MODELS = 'FETCH_INFORMATION_MODELS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
@@ -70,6 +71,28 @@ export function userLogin(props, cb) {
 
     return {
         type: USER_LOGIN,
+        payload: request
+    };
+}
+
+export function userLogout(cb) {
+    const url = `${ROOT_URL}/user/logout`;
+
+    const config = {
+        url: url,
+        method: 'post',
+        headers: headers
+    };
+
+    const request = axios.request(config)
+        .then(res => {
+            cb(res);
+            return res;
+        })
+        .catch((res) => console.log(res));
+
+    return {
+        type: USER_LOGOUT,
         payload: request
     };
 }

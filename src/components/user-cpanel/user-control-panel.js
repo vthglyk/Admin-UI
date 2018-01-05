@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import Header from './header';
 import Main from './main';
 
-const UserControlPanel = () => {
+const UserControlPanel = (props) => {
     return(
         <Fragment>
-            <Header/>
+            <Header history={props.history}/>
             <Main/>
         </Fragment>
     );
