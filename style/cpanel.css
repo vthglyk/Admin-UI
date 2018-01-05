@@ -173,6 +173,10 @@ a {
     border-radius: 4px
 }
 
+.panel-title {
+    cursor: pointer;
+}
+
 .panel-heading span {
     margin-top: -23px;
     font-size: 15px;

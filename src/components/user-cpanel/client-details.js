@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ClientDetails = ()=> {
+const ClientDetails = () => {
     return(
         <h3>Client Details</h3>
     );

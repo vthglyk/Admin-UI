@@ -3,7 +3,8 @@ import { Row, Col, Tab, Nav, NavItem } from 'react-bootstrap';
 import UserDetails from './user-details';
 import ClientDetails from './client-details';
 import PlatformDetails from './platform-details';
-import InfromationModels from './information-models';
+import PlatformPanelList from './platform-list';
+import InformationModels from './information-models';
 
 const Main = () => {
     return(
@@ -11,7 +12,7 @@ const Main = () => {
             <div className="container">
                 <Tab.Container id="tabbable-menu" defaultActiveKey="user-details">
                     <Row className="clearfix">
-                        <Col md={3} lg={3}>
+                        <Col lg={3} md={3} sm={3} xs={3}>
                             <Nav bsStyle="pills" stacked className="sidebar panel-primary shadow">
                                 <NavItem eventKey="user-details">
                                     User Details
@@ -27,19 +28,20 @@ const Main = () => {
                                 </NavItem>
                             </Nav>
                         </Col>
-                        <Col md={9} lg={9}>
+                        <Col lg={9} md={9} sm={9} xs={9}>
                             <Tab.Content animation className="clearfix">
                                 <Tab.Pane eventKey="user-details">
                                     <UserDetails />
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="client-details">
-                                    <ClientDetails/>
+                                    <ClientDetails />
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="platform-details">
-                                    <PlatformDetails/>
+                                    <PlatformDetails />
+                                    <PlatformPanelList />
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="information-models">
-                                    <InfromationModels/>
+                                    <InformationModels />
                                 </Tab.Pane>
                             </Tab.Content>
                         </Col>

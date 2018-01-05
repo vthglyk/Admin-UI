@@ -6,7 +6,8 @@ import UserLoginReducer from './user-login-reducer';
 import UserLogoutReducer from './user-logout-reducer';
 import ModalReducer from './modal-reducer';
 import PlatformRegistrationReducer from './platform-registration-form-reducer';
-import InformationModelReducer from './get-information-models-reducer';
+import InformationModelReducer from './fetch-information-models-reducer';
+import UserPlatforms from './fetch-user-platforms-reducer';
 
 const rootReducer = combineReducers({
     userRoles: UserRolesReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     modalState: ModalReducer,
     platformRegistrationForm: PlatformRegistrationReducer,
     informationModels: InformationModelReducer,
+    userPlatforms: UserPlatforms,
     form: formReducer
 });
 

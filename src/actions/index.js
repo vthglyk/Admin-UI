@@ -8,6 +8,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const CHANGE_MODAL_STATE = 'CHANGE_MODAL_STATE';
 export const FETCH_INFORMATION_MODELS = 'FETCH_INFORMATION_MODELS';
+export const FETCH_USER_PLATFORMS = 'FETCH_USER_PLATFORMS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
 export const DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT = 'DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT';
 export const DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT = 'DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT';
@@ -88,8 +89,7 @@ export function userLogout(cb) {
         .then(res => {
             cb(res);
             return res;
-        })
-        .catch((res) => console.log(res));
+        });
 
     return {
         type: USER_LOGOUT,
@@ -110,6 +110,23 @@ export function fetchInformationModels() {
 
     return {
         type: FETCH_INFORMATION_MODELS,
+        payload: request
+    };
+}
+
+export function fetchUserPlatforms() {
+    const url = `${ROOT_URL}/user/cpanel/list_user_platforms`;
+
+    const config = {
+        url: url,
+        method: 'post',
+        headers: headers
+    };
+
+    const request = axios.request(config);
+
+    return {
+        type: FETCH_USER_PLATFORMS,
         payload: request
     };
 }

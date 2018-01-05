@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InformationModels = ()=> {
+const InformationModels = () => {
     return(
         <h3>Information Models</h3>
     );
