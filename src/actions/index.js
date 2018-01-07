@@ -10,8 +10,11 @@ export const CHANGE_MODAL_STATE = 'CHANGE_MODAL_STATE';
 export const FETCH_INFORMATION_MODELS = 'FETCH_INFORMATION_MODELS';
 export const FETCH_USER_PLATFORMS = 'FETCH_USER_PLATFORMS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
+export const DELETE_PLATFORM = 'DELETE_PLATFORM';
 export const DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT = 'DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT';
 export const DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT = 'DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT';
+export const DISMISS_PLATFORM_DELETION_SUCCESS_ALERT = 'DISMISS_PLATFORM_DELETION_SUCCESS_ALERT';
+export const DISMISS_PLATFORM_DELETION_ERROR_ALERT = 'DISMISS_SUCCESS_REGISTRATION_ERROR_ALERT';
 
 axios.defaults.withCredentials = true;
 
@@ -55,7 +58,7 @@ export function registerUser(props, cb) {
 export function userLogin(props, cb) {
     const url = `${ROOT_URL}/user/login`;
     const data = `username=${props.username}&password=${props.password}`;
-    const customHeaders = { ...headers, ['Content-Type'] : 'application/x-www-form-urlencoded; charset=UTF-8'}
+    const customHeaders = { ...headers, ['Content-Type'] : 'application/x-www-form-urlencoded; charset=UTF-8' };
 
     const config = {
         url: url,
@@ -153,6 +156,26 @@ export function registerPlatform(props, cb) {
     };
 }
 
+export function deletePlatform(platformId) {
+    const url = `${ROOT_URL}/user/cpanel/delete_platform`;
+    const data = `platformIdToDelete=${platformId}`;
+    const customHeaders = { ...headers, ['Content-Type'] : 'application/x-www-form-urlencoded; charset=UTF-8' };
+
+    const config = {
+        url: url,
+        method: 'post',
+        data: data,
+        headers: customHeaders
+    };
+
+    const request = axios.request(config);
+
+    return {
+        type: DELETE_PLATFORM,
+        payload: request
+    };
+}
+
 export function dismissPlatformRegistrationSuccessAlert() {
     return {
         type: DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT
@@ -162,5 +185,17 @@ export function dismissPlatformRegistrationSuccessAlert() {
 export function dismissPlatformRegistrationErrorAlert() {
     return {
         type: DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT
+    };
+}
+
+export function dismissPlatformDeletionSuccessAlert() {
+    return {
+        type: DISMISS_PLATFORM_DELETION_SUCCESS_ALERT
+    };
+}
+
+export function dismissPlatformDeletionErrorAlert() {
+    return {
+        type: DISMISS_PLATFORM_DELETION_ERROR_ALERT
     };
 }

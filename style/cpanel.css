@@ -173,7 +173,7 @@ a {
     border-radius: 4px
 }
 
-.panel-title {
+.panel-heading {
     cursor: pointer;
 }
 
@@ -285,4 +285,8 @@ ul.nav li:hover > ul.dropdown-menu {
 #federation-panels {
     margin: 0;
     padding: 0;
+}
+
+.alert {
+    clear: both;
 }

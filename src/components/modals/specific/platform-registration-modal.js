@@ -98,13 +98,11 @@ class PlatformRegistrationModal extends Component {
 
     render() {
         const { handleSubmit, modalState, informationModels,
-            platformRegistrationForm, platformRegistrationValidity } = this.props;
+            userPlatforms, platformRegistrationValidity } = this.props;
         const opts = { disabled : !platformRegistrationValidity};
 
         return(
             <Fragment>
-                <AlertDismissable style="success" errorMessage={platformRegistrationForm.success}
-                                  dismissHandler={this.props.dismissPlatformRegistrationSuccessAlert} />
                 <Button
                     className="registration-btn"
                     bsStyle="info"
@@ -112,13 +110,16 @@ class PlatformRegistrationModal extends Component {
                     Register New Platform
                 </Button>
 
+                <AlertDismissable style="success" message={userPlatforms.successfulPlatformRegistration}
+                                  dismissHandler={this.props.dismissPlatformRegistrationSuccessAlert} />
+
                 <Modal show={modalState[PLATFORM_REGISTRATION_MODAL]} onHide={this.close.bind(this)}>
                     <Modal.Header closeButton>
                         <Modal.Title>Platform Registration</Modal.Title>
                     </Modal.Header>
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                         <Modal.Body>
-                            <AlertDismissable style="danger" errorMessage={platformRegistrationForm.error}
+                            <AlertDismissable style="danger" message={userPlatforms.platformRegistrationError}
                                               dismissHandler={this.props.dismissPlatformRegistrationErrorAlert} />
                             <FieldError error={informationModels.error} />
 
@@ -129,7 +130,7 @@ class PlatformRegistrationModal extends Component {
                                         label="Platform Id" placeholder="Enter preferred platform id"
                                         helpMessage={"From 4 to 30 characters. Include only letters, digits, '-' and" +
                                         " '_'. You can leave it empty for autogeneration"}
-                                        errorField={platformRegistrationForm.id_error}
+                                        errorField={userPlatforms.id_error}
                                         component={this.renderInputField}
                                     />
                                 </Col>
@@ -138,7 +139,7 @@ class PlatformRegistrationModal extends Component {
                                         name="name" type="text" maxLength={30}
                                         label="Platform Name" placeholder="Enter the platform name"
                                         helpMessage="From 3 to 30 characters"
-                                        errorField={platformRegistrationForm.name_error}
+                                        errorField={userPlatforms.name_error}
                                         component={this.renderInputField}
                                     />
                                 </Col>
@@ -147,7 +148,7 @@ class PlatformRegistrationModal extends Component {
                                 name="description" componentClass="textarea"
                                 rows={3} maxLength={30} label="Platform Description"
                                 placeholder="Enter the platform description" helpMessage="From 4 to 300 characters"
-                                errorField={platformRegistrationForm.description_error}
+                                errorField={userPlatforms.description_error}
                                 component={this.renderInputField}
                             />
                             <FormGroup>
@@ -157,7 +158,7 @@ class PlatformRegistrationModal extends Component {
                                         <Field
                                             name="interworkingServiceUrl" type="text" subElement={true}
                                             placeholder="Enter a valid https url"
-                                            errorField={platformRegistrationForm.interworkingServiceUrl_error}
+                                            errorField={userPlatforms.interworkingServiceUrl_error}
                                             component={this.renderInputField}
                                         />
                                     </Col>
@@ -167,7 +168,7 @@ class PlatformRegistrationModal extends Component {
                                             placeholder="Information Model" subElement={true}
                                             component={RFReactSelect}
                                         />
-                                        <FieldError error={platformRegistrationForm.informationModel_error} />
+                                        <FieldError error={userPlatforms.informationModel_error} />
 
                                     </Col>
                                 </Row>
@@ -184,7 +185,7 @@ class PlatformRegistrationModal extends Component {
                                         />
                                         <FormControl.Feedback />
                                         <HelpBlock>Select your Platform type</HelpBlock>
-                                        <FieldError error={platformRegistrationForm.type_error} />
+                                        <FieldError error={userPlatforms.type_error} />
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -221,7 +222,7 @@ function mapStateToProps(state) {
     return {
         modalState: state.modalState,
         informationModels: state.informationModels,
-        platformRegistrationForm: state.platformRegistrationForm,
+        userPlatforms: state.userPlatforms,
         platformRegistrationValidity: getPlatformRegistrationValidity(state)
     };
 }
