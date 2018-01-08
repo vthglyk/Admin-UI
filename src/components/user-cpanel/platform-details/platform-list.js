@@ -2,11 +2,11 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import CollapsiblePlatformPanel from './collapsible-platform-panel';
-import { AlertDismissable } from '../../helpers/errors';
+import { AlertDismissable } from '../../../helpers/errors';
 import {
     fetchUserPlatforms, deletePlatform,
     dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
-} from '../../actions';
+} from '../../../actions/index';
 
 class PlatformPanelList extends Component {
 
@@ -25,7 +25,6 @@ class PlatformPanelList extends Component {
                 {_.map(availablePlatforms, (platform) => {
                     return <CollapsiblePlatformPanel
                         key={platform.id}
-                        platformId={platform.id}
                         platform={platform}
                         informationModels={this.props.informationModels}
                         onDelete={this.props.deletePlatform} />

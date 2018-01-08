@@ -37,7 +37,7 @@ export default class CollapsiblePlatformPanel extends Component {
     }
 
     handleDeletePlatform() {
-        this.props.onDelete(this.props.platformId);
+        this.props.onDelete(this.state.platform.id);
         this.closeDeleteModal();
     }
 
@@ -53,11 +53,11 @@ export default class CollapsiblePlatformPanel extends Component {
     }
 
     render() {
-        const { platform, informationModels } = this.state;
+        const { platform, informationModels : {availableInfoModels} } = this.state;
         const informationModelId = platform.interworkingServices[0].informationModelId;
         const informationModelOptions = [{
-            label : informationModels[informationModelId].name,
-            value : informationModelId}];
+            label : availableInfoModels[informationModelId].name,
+            value : availableInfoModels}];
         const platformOptions = [{
             label : platform.isEnabler ? "Enabler" : "Platform",
             value : platform.isEnabler ? "true" : "false"}];

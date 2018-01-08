@@ -5,7 +5,7 @@ import UserRegistrationReducer from './user-registration-reducer';
 import UserLoginReducer from './user-login-reducer';
 import UserLogoutReducer from './user-logout-reducer';
 import ModalReducer from './modal-reducer';
-import InformationModelReducer from './fetch-information-models-reducer';
+import InformationModelReducer from './information-models-reducer';
 import UserPlatforms from './user-platforms-reducer';
 
 const rootReducer = combineReducers({

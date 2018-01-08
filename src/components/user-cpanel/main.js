@@ -1,10 +1,9 @@
 import React from 'react';
 import { Row, Col, Tab, Nav, NavItem } from 'react-bootstrap';
-import UserDetails from './user-details';
-import ClientDetails from './client-details';
-import PlatformDetails from './platform-details';
-import PlatformPanelList from './platform-list';
-import InformationModels from './information-models';
+import UserDetails from './user-details/index';
+import ClientDetails from './client-details/index';
+import PlatformDetails from './platform-details/index';
+import InformationModels from './information-models/index';
 
 const Main = () => {
     return(
@@ -38,7 +37,6 @@ const Main = () => {
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="platform-details">
                                     <PlatformDetails />
-                                    <PlatformPanelList />
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="information-models">
                                     <InformationModels />

@@ -290,3 +290,12 @@ ul.nav li:hover > ul.dropdown-menu {
 .alert {
     clear: both;
 }
+
+.rdf-file {
+    width: 100%;
+    height: 50px;
+    border-width: 2px;
+    border-color: rgb(38, 154, 188);
+    border-style: dashed;
+    border-radius: 5px;
+}

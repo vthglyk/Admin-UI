@@ -8,11 +8,12 @@ import RFReactSelect from "../../../helpers/redux-form-react-selector-integrator
 import { InterworkingService, Platform } from "../../../helpers/object-definitions";
 import { getPlatformRegistrationValidity } from "../../../selectors/index";
 import { FieldError, AlertDismissable } from '../../../helpers/errors';
+import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
 import { changeModalState, fetchInformationModels,
     registerPlatform, dismissPlatformRegistrationSuccessAlert,
     dismissPlatformRegistrationErrorAlert } from "../../../actions";
 import {
-    getValidationState, validateId, validateName, validateDescription,
+    validateId, validateName, validateDescription,
     validateInterworkingInterfaceUrl, validateInformationModel
 } from "../../../components/user-cpanel/validation/platform-registration-validation";
 
@@ -46,7 +47,7 @@ class PlatformRegistrationModal extends Component {
     }
 
     informationModels = () => {
-        return _.map(this.props.informationModels, (model) => {
+        return _.map(this.props.informationModels.availableInfoModels, (model) => {
             return({ value: model.id, label: model.name});
         });
     };
@@ -121,7 +122,7 @@ class PlatformRegistrationModal extends Component {
                         <Modal.Body>
                             <AlertDismissable style="danger" message={userPlatforms.platformRegistrationError}
                                               dismissHandler={this.props.dismissPlatformRegistrationErrorAlert} />
-                            <FieldError error={informationModels.error} />
+                            <FieldError error={informationModels.fetching_error} />
 
                             <Row>
                                 <Col sm={6}>

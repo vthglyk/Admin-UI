@@ -11,10 +11,15 @@ export const FETCH_INFORMATION_MODELS = 'FETCH_INFORMATION_MODELS';
 export const FETCH_USER_PLATFORMS = 'FETCH_USER_PLATFORMS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
 export const DELETE_PLATFORM = 'DELETE_PLATFORM';
+export const DELETE_INFO_MODEL = 'DELETE_INFO_MODEL';
 export const DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT = 'DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT';
 export const DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT = 'DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT';
 export const DISMISS_PLATFORM_DELETION_SUCCESS_ALERT = 'DISMISS_PLATFORM_DELETION_SUCCESS_ALERT';
 export const DISMISS_PLATFORM_DELETION_ERROR_ALERT = 'DISMISS_SUCCESS_REGISTRATION_ERROR_ALERT';
+export const DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT = 'DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT';
+export const DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT = 'DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT';
+export const DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT = 'DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT';
+export const DISMISS_INFO_MODEL_DELETION_ERROR_ALERT = 'DISMISS_INFO_MODEL_DELETION_ERROR_ALERT';
 
 axios.defaults.withCredentials = true;
 
@@ -57,13 +62,15 @@ export function registerUser(props, cb) {
 
 export function userLogin(props, cb) {
     const url = `${ROOT_URL}/user/login`;
-    const data = `username=${props.username}&password=${props.password}`;
     const customHeaders = { ...headers, ['Content-Type'] : 'application/x-www-form-urlencoded; charset=UTF-8' };
+    let formData = new FormData();
+    formData.append("username", props.username);
+    formData.append("password", props.password);
 
     const config = {
         url: url,
         method: 'post',
-        data: data,
+        data: formData,
         headers: customHeaders
     };
 
@@ -158,13 +165,15 @@ export function registerPlatform(props, cb) {
 
 export function deletePlatform(platformId) {
     const url = `${ROOT_URL}/user/cpanel/delete_platform`;
-    const data = `platformIdToDelete=${platformId}`;
     const customHeaders = { ...headers, ['Content-Type'] : 'application/x-www-form-urlencoded; charset=UTF-8' };
+    let formData = new FormData();
+    formData.append('platformIdToDelete', platformId);
+
 
     const config = {
         url: url,
         method: 'post',
-        data: data,
+        data: formData,
         headers: customHeaders
     };
 
@@ -172,6 +181,27 @@ export function deletePlatform(platformId) {
 
     return {
         type: DELETE_PLATFORM,
+        payload: request
+    };
+}
+
+export function deleteInfoModel(infoModelId) {
+    const url = `${ROOT_URL}/user/cpanel/delete_information_model`;
+    const customHeaders = { ...headers, ['Content-Type'] : 'application/x-www-form-urlencoded; charset=UTF-8' };
+    let formData = new FormData();
+    formData.append('infoModelIdToDelete', infoModelId);
+
+    const config = {
+        url: url,
+        method: 'post',
+        data: formData,
+        headers: customHeaders
+    };
+
+    const request = axios.request(config);
+
+    return {
+        type: DELETE_INFO_MODEL,
         payload: request
     };
 }
@@ -197,5 +227,29 @@ export function dismissPlatformDeletionSuccessAlert() {
 export function dismissPlatformDeletionErrorAlert() {
     return {
         type: DISMISS_PLATFORM_DELETION_ERROR_ALERT
+    };
+}
+
+export function dismissInfoModelRegistrationSuccessAlert() {
+    return {
+        type: DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT
+    };
+}
+
+export function dismissInfoModelRegistrationErrorAlert() {
+    return {
+        type: DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT
+    };
+}
+
+export function dismissInfoModelDeletionSuccessAlert() {
+    return {
+        type: DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT
+    };
+}
+
+export function dismissInfoModelDeletionErrorAlert() {
+    return {
+        type: DISMISS_INFO_MODEL_DELETION_ERROR_ALERT
     };
 }

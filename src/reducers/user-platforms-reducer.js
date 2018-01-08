@@ -87,7 +87,7 @@ export default function(state = {}, action) {
                 }
             }
             else {
-                const platformId = action.payload.config.data.split("=")[1];
+                const platformId = action.payload.config.data.get("platformIdToDelete");
                 const successfulPlatformDeletion = `Platform "${state.availablePlatforms[platformId].name}" was deleted successfully!`;
 
                 let newState = _.omit(state, "platformDeletionError");
