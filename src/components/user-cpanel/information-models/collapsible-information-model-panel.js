@@ -69,6 +69,14 @@ export default class CollapsibleInformationModelPanel extends Component {
                                 {this.renderInputField(infoModel.id, "Id", "text")}
                             </Col>
                         </Row>
+                        <Row>
+                            <Col sm={6}>
+                                {this.renderInputField(infoModel.uri, "Uri", "text")}
+                            </Col>
+                            <Col sm={6}>
+                                {this.renderInputField(infoModel.rdfFormat, "RDF Format", "text")}
+                            </Col>
+                        </Row>
                     </Panel.Body>
                 </Panel.Collapse>
                 <Panel.Footer className="info-model-info-footer">

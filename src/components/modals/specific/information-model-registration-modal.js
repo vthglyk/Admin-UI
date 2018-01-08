@@ -1,16 +1,19 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
-import { INFORMATION_MODEL_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
-import { InterworkingService, Platform } from "../../../helpers/object-definitions";
-import { getPlatformRegistrationValidity } from "../../../selectors/index";
+import { INFORMATION_MODEL_REGISTRATION_MODAL } from '../../../reducers/modal-reducer';
+import { InterworkingService, Platform } from '../../../helpers/object-definitions';
+import { getPlatformRegistrationValidity } from '../../../selectors/index';
 import { FieldError, AlertDismissable } from '../../../helpers/errors';
-import { changeModalState } from "../../../actions";
 import { validateName, validateUri } from '../../../components/user-cpanel/validation/information-model-registration-validation';
 import { getValidationState } from '../../../components/user-cpanel/validation/helpers';
+import {
+    changeModalState, registerInfoModel,
+    dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
+} from '../../../actions';
 
 class InformationModelRegistrationModal extends Component {
 
@@ -24,30 +27,13 @@ class InformationModelRegistrationModal extends Component {
 
 
     onSubmit(props) {
-        console.log(props)
-        // let { id, name, description, interworkingServiceUrl, informationModel, type } = props;
-        // let descriptions = [];
-        // let interworkingServices = [];
-        //
-        // if (!id)
-        //     id = "";
-        //
-        // if (!type)
-        //     type = this.typeDefault;
-        //
-        // descriptions.push(description ? description : "");
-        //
-        // interworkingServices.push(new InterworkingService(interworkingServiceUrl, informationModel));
-        //
-        // const newPlatform = new Platform(id, name, descriptions, interworkingServices, type);
-        //
-        // this.props.registerPlatform(newPlatform, (res) => {
-        //     if (res.status === 201) {
-        //         this.props.changeModalState(INFORMATION_MODEL_REGISTRATION_MODAL, false);
-        //         this.props.reset();
-        //     }
-        //
-        // });
+        this.props.registerInfoModel(props, (res) => {
+            if (res.status === 201) {
+                this.props.changeModalState(INFORMATION_MODEL_REGISTRATION_MODAL, false);
+                this.props.reset();
+            }
+
+        });
     }
 
 
@@ -92,11 +78,11 @@ class InformationModelRegistrationModal extends Component {
         );
     }
 
-    renderFIleInput(field) {
+    renderFileInput(field) {
         delete field.input.value;
 
-        const { input, type, placeholder, componentClass, rows, subElement, errorField,
-            label, helpMessage, maxLength, meta : { touched, invalid, error } } = field;
+        const { input, subElement, errorField, label, helpMessage,
+            meta : { touched, invalid, error } } = field;
         const validationState = getValidationState(input.value, touched, invalid);
         return (
             <FormGroup>
@@ -123,8 +109,8 @@ class InformationModelRegistrationModal extends Component {
                     Register New Information Model
                 </Button>
 
-                {/*<AlertDismissable style="success" message={userPlatforms.successfulPlatformRegistration}*/}
-                                  {/*dismissHandler={this.props.dismissPlatformRegistrationSuccessAlert} />*/}
+                <AlertDismissable style="success" message={informationModels.successfulInfoModelRegistration}
+                                  dismissHandler={this.props.dismissInfoModelRegistrationSuccessAlert} />
 
                 <Modal show={modalState[INFORMATION_MODEL_REGISTRATION_MODAL]} onHide={this.close.bind(this)}>
                     <Modal.Header closeButton>
@@ -132,9 +118,8 @@ class InformationModelRegistrationModal extends Component {
                     </Modal.Header>
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                         <Modal.Body>
-                            {/*<AlertDismissable style="danger" message={userPlatforms.platformRegistrationError}*/}
-                                              {/*dismissHandler={this.props.dismissPlatformRegistrationErrorAlert} />*/}
-                            {/*<FieldError error={informationModels.error} />*/}
+                            <AlertDismissable style="danger" message={informationModels.infoModelRegistrationError}
+                                              dismissHandler={this.props.dismissInfoModelRegistrationErrorAlert} />
 
                             <Row>
                                 <Col lg={6} md={6} sm={6} xs={6}>
@@ -149,7 +134,7 @@ class InformationModelRegistrationModal extends Component {
                                 <Col lg={6} md={6} sm={6} xs={6}>
                                     <Field
                                         name="uri" type="text"
-                                        label="Id" placeholder="Enter the uri of the model"
+                                        label="Uri" placeholder="Enter the uri of the model"
                                         errorField={informationModels.uri_error}
                                         component={this.renderInputField}
                                     />
@@ -164,15 +149,17 @@ class InformationModelRegistrationModal extends Component {
                             <Row>
                                 <Col lg={12} md={12} sm={12} xs={12}>
                                     <Field
-                                        name="rdf_file_input"
-                                        label="Rdf File"
-                                        component={this.renderFIleInput}
+                                        name="rdf"
+                                        label="RDF File"
+                                        errorField={informationModels.rdf_error}
+                                        component={this.renderFileInput}
                                     />
                                 </Col>
                             </Row>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button type="submit" bsStyle="info" { ...opts }>Submit</Button>
+                            {/*<Button type="submit" bsStyle="info" { ...opts }>Submit</Button>*/}
+                            <Button type="submit" bsStyle="info">Submit</Button>
                             <Button type="button" bsStyle="default" onClick={this.close.bind(this)}>Close</Button>
                         </Modal.Footer>
                     </form>
@@ -208,5 +195,8 @@ export default reduxForm({
     form: 'InformationModelRegistrationForm',
     validate
 })(
-    connect(mapStateToProps, {changeModalState})(InformationModelRegistrationModal)
+    connect(mapStateToProps, {
+        changeModalState, registerInfoModel,
+        dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
+    })(InformationModelRegistrationModal)
 );

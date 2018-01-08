@@ -11,6 +11,7 @@ export const FETCH_ALL_INFORMATION_MODELS = 'FETCH_ALL_INFORMATION_MODELS';
 export const FETCH_USER_PLATFORMS = 'FETCH_USER_PLATFORMS';
 export const FETCH_USER_INFORMATION_MODELS = 'FETCH_USER_INFORMATION_MODELS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
+export const REGISTER_INFO_MODEL = 'REGISTER_INFO_MODEL';
 export const DELETE_PLATFORM = 'DELETE_PLATFORM';
 export const DELETE_INFO_MODEL = 'DELETE_INFO_MODEL';
 export const DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT = 'DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT';
@@ -159,13 +160,13 @@ export function fetchUserInformationModels() {
     };
 }
 
-export function registerPlatform(props, cb) {
+export function registerPlatform(platform, cb) {
     const url = `${ROOT_URL}/user/cpanel/register_platform`;
 
     const config = {
         url: url,
         method: 'post',
-        data: props,
+        data: platform,
         headers: headers
     };
 
@@ -199,6 +200,33 @@ export function deletePlatform(platformId) {
 
     return {
         type: DELETE_PLATFORM,
+        payload: request
+    };
+}
+
+export function registerInfoModel(props, cb) {
+    const url = `${ROOT_URL}/user/cpanel/register_information_model`;
+    const customHeaders = { ...headers, ['Content-Type'] : 'multipart/form-data' };
+    let formData = new FormData();
+    formData.append('info-model-name', props.name);
+    formData.append('info-model-uri', props.uri);
+    formData.append('info-model-rdf', props.rdf[0]);
+
+    const config = {
+        url: url,
+        method: 'post',
+        data: formData,
+        headers: customHeaders
+    };
+
+    const request = axios.request(config)
+        .then(res => {
+            cb(res);
+            return res;
+        });
+
+    return {
+        type: REGISTER_INFO_MODEL,
         payload: request
     };
 }

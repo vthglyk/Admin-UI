@@ -57,17 +57,19 @@ export default class CollapsiblePlatformPanel extends Component {
         const informationModelId = platform.interworkingServices[0].informationModelId;
         const informationModelOptions = [{
             label : availableInfoModels[informationModelId].name,
-            value : availableInfoModels}];
+            value : informationModelId
+        }];
         const platformOptions = [{
             label : platform.isEnabler ? "Enabler" : "Platform",
-            value : platform.isEnabler ? "true" : "false"}];
+            value : platform.isEnabler ? "true" : "false"
+        }];
 
         return(
             <Panel id="id" bsStyle="primary" className="platform-panel-entry"
                    expanded={this.state.open} onToggle={() => {}}>
                 <Panel.Heading onClick={this.togglePanel}>
                     <Panel.Title componentClass="h3">
-                        {platform.name}
+                       con {platform.name}
                     </Panel.Title>
                     <Glyphicon glyph={this.state.open ? "minus" : "plus"} className="pull-right" />
                 </Panel.Heading>
