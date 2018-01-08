@@ -110,7 +110,7 @@ export default class CollapsiblePlatformPanel extends Component {
                         </Row>
                     </Panel.Body>
                 </Panel.Collapse>
-                <Panel.Footer>
+                <Panel.Footer className="platform-info-footer">
                     <Button
                         bsStyle="info">
                         Get Configuration

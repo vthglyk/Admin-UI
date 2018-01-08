@@ -236,6 +236,10 @@ a.clickable:hover { text-decoration:none; }
     overflow: hidden;
 }
 
+.info-model-info-footer {
+    overflow: hidden;
+}
+
 .platformDelForm {
     clear: both;
     overflow: hidden;

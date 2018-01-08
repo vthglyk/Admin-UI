@@ -9,7 +9,7 @@ import { InterworkingService, Platform } from "../../../helpers/object-definitio
 import { getPlatformRegistrationValidity } from "../../../selectors/index";
 import { FieldError, AlertDismissable } from '../../../helpers/errors';
 import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
-import { changeModalState, fetchInformationModels,
+import { changeModalState, fetchAllInformationModels,
     registerPlatform, dismissPlatformRegistrationSuccessAlert,
     dismissPlatformRegistrationErrorAlert } from "../../../actions";
 import {
@@ -233,7 +233,7 @@ export default reduxForm({
     validate
 })(
     connect(mapStateToProps, {
-        changeModalState, fetchInformationModels,
+        changeModalState, fetchInformationModels: fetchAllInformationModels,
         registerPlatform, dismissPlatformRegistrationSuccessAlert,
         dismissPlatformRegistrationErrorAlert
     })(PlatformRegistrationModal)

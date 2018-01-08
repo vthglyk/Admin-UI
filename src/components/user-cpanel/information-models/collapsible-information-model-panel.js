@@ -71,11 +71,7 @@ export default class CollapsibleInformationModelPanel extends Component {
                         </Row>
                     </Panel.Body>
                 </Panel.Collapse>
-                <Panel.Footer>
-                    <Button
-                        bsStyle="info">
-                        Get Configuration
-                    </Button>
+                <Panel.Footer className="info-model-info-footer">
                     <Button
                         className="btn-warning-delete"
                         bsStyle="warning"

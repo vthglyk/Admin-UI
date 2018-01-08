@@ -4,22 +4,25 @@ import _ from 'lodash';
 import CollapsibleInformationModelPanel from './collapsible-information-model-panel';
 import { AlertDismissable } from '../../../helpers/errors';
 import {
-    deleteInfoModel,
+    fetchUserInformationModels, deleteInfoModel,
     dismissInfoModelDeletionSuccessAlert, dismissInfoModelDeletionErrorAlert
 } from '../../../actions/index';
 
 class InformationModelList extends Component {
 
+    componentDidMount() {
+        this.props.fetchUserInformationModels();
+    }
+
     render() {
-        const { availableInfoModels, successfulInfoModelDeletion, infoModelDeletionError } = this.props.informationModels;
-        console.log(availableInfoModels)
+        const { availableUserInfoModels, successfulInfoModelDeletion, infoModelDeletionError } = this.props.informationModels;
         return(
             <Fragment>
                 <AlertDismissable style="danger" message={infoModelDeletionError}
                                   dismissHandler={this.props.dismissInfoModelDeletionErrorAlert} />
                 <AlertDismissable style="success" message={successfulInfoModelDeletion}
                                   dismissHandler={this.props.dismissInfoModelDeletionSuccessAlert} />
-                {_.map(availableInfoModels, (infoModel) => {
+                {_.map(availableUserInfoModels, (infoModel) => {
                     return <CollapsibleInformationModelPanel
                         key={infoModel.id}
                         infoModel={infoModel}
@@ -38,6 +41,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    fetchUserInformationModels,
     deleteInfoModel,
     dismissInfoModelDeletionSuccessAlert,
     dismissInfoModelDeletionErrorAlert

@@ -7,8 +7,9 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const CHANGE_MODAL_STATE = 'CHANGE_MODAL_STATE';
-export const FETCH_INFORMATION_MODELS = 'FETCH_INFORMATION_MODELS';
+export const FETCH_ALL_INFORMATION_MODELS = 'FETCH_ALL_INFORMATION_MODELS';
 export const FETCH_USER_PLATFORMS = 'FETCH_USER_PLATFORMS';
+export const FETCH_USER_INFORMATION_MODELS = 'FETCH_USER_INFORMATION_MODELS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
 export const DELETE_PLATFORM = 'DELETE_PLATFORM';
 export const DELETE_INFO_MODEL = 'DELETE_INFO_MODEL';
@@ -107,7 +108,7 @@ export function userLogout(cb) {
     };
 }
 
-export function fetchInformationModels() {
+export function fetchAllInformationModels() {
     const url = `${ROOT_URL}/user/cpanel/list_all_info_models`;
 
     const config = {
@@ -119,7 +120,7 @@ export function fetchInformationModels() {
     const request = axios.request(config);
 
     return {
-        type: FETCH_INFORMATION_MODELS,
+        type: FETCH_ALL_INFORMATION_MODELS,
         payload: request
     };
 }
@@ -137,6 +138,23 @@ export function fetchUserPlatforms() {
 
     return {
         type: FETCH_USER_PLATFORMS,
+        payload: request
+    };
+}
+
+export function fetchUserInformationModels() {
+    const url = `${ROOT_URL}/user/cpanel/list_user_info_models`;
+
+    const config = {
+        url: url,
+        method: 'post',
+        headers: headers
+    };
+
+    const request = axios.request(config);
+
+    return {
+        type: FETCH_USER_INFORMATION_MODELS,
         payload: request
     };
 }

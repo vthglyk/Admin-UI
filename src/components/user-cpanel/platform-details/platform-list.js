@@ -43,5 +43,8 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchUserPlatforms, deletePlatform, dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
+    fetchUserPlatforms,
+    deletePlatform,
+    dismissPlatformDeletionSuccessAlert,
+    dismissPlatformDeletionErrorAlert
 })(PlatformPanelList);
