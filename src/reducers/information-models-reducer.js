@@ -2,6 +2,7 @@ import {
     FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS, DELETE_INFO_MODEL, REGISTER_INFO_MODEL,
     DISMISS_INFO_MODEL_DELETION_ERROR_ALERT, DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT,
     DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT,
+    UPLOADING_INFO_MODEL_PROGRESS
 } from "../actions";
 
 export default function(state = {}, action) {
@@ -36,9 +37,12 @@ export default function(state = {}, action) {
                         newState.rdf_error = message.info_model_reg_error_rdf;
 
                     newState.infoModelRegistrationError = message.error;
-                    return { ...state, ...newState};
+                    return { ...state, ...newState, completed: true};
                 } else {
-                    return {...state, infoModelRegistrationError: "Network Error: Could not contact server"};
+                    return {
+                        ...state,
+                        infoModelRegistrationError: "Network Error: Could not contact server",
+                        completed: true};
                 }
             }
             else {
@@ -61,7 +65,8 @@ export default function(state = {}, action) {
                 return {
                     ...newState,
                     availableUserInfoModels : newAvailableUserInfoModels,
-                    successfulInfoModelRegistration
+                    successfulInfoModelRegistration,
+                    completed: true
                 };
             }
         case DELETE_INFO_MODEL:
@@ -88,6 +93,8 @@ export default function(state = {}, action) {
                     successfulInfoModelDeletion
                 };
             }
+        case UPLOADING_INFO_MODEL_PROGRESS:
+            return { ...state, uploadedPerCent : action.payload, completed: false };
         case DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT:
             return _.omit(state, "successfulInfoModelRegistration");
         case DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT:

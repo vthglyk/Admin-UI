@@ -1,17 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock } from 'react-bootstrap';
+import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock, ProgressBar } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import { INFORMATION_MODEL_REGISTRATION_MODAL } from '../../../reducers/modal-reducer';
 import { InterworkingService, Platform } from '../../../helpers/object-definitions';
 import { getPlatformRegistrationValidity } from '../../../selectors/index';
+import ProgressBarWrapper from '../../../helpers/ProgressBarWrapper';
 import { FieldError, AlertDismissable } from '../../../helpers/errors';
 import { validateName, validateUri } from '../../../components/user-cpanel/validation/information-model-registration-validation';
 import { getValidationState } from '../../../components/user-cpanel/validation/helpers';
 import {
-    changeModalState, registerInfoModel,
+    changeModalState, registerInfoModel, uploadingInfoModelProgress,
     dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
 } from '../../../actions';
 
@@ -27,13 +28,18 @@ class InformationModelRegistrationModal extends Component {
 
 
     onSubmit(props) {
-        this.props.registerInfoModel(props, (res) => {
-            if (res.status === 201) {
-                this.props.changeModalState(INFORMATION_MODEL_REGISTRATION_MODAL, false);
-                this.props.reset();
-            }
+        this.props.registerInfoModel(
+            props,
+            (res) => {
+                if (res.status === 201) {
+                    this.props.changeModalState(INFORMATION_MODEL_REGISTRATION_MODAL, false);
+                    this.props.reset();
+                    this.props.uploadingInfoModelProgress(0);
+                }
 
-        });
+            },
+            this.props.uploadingInfoModelProgress
+        );
     }
 
 
@@ -96,6 +102,19 @@ class InformationModelRegistrationModal extends Component {
         );
     }
 
+    waitingComponent = () => {
+        return(
+            <Row>
+                <Col lg={9} md={9} sm={9} xs={9}>
+                    <strong>Ongoing validation of the information model</strong>
+                </Col>
+                <Col lg={3} md={3} sm={3} xs={3}>
+                    <ProgressBar bsStyle="info" active now={100} />
+                </Col>
+            </Row>
+        );
+    };
+
     render() {
         const { handleSubmit, modalState, informationModels, platformRegistrationValidity } = this.props;
         const opts = { disabled : !platformRegistrationValidity};
@@ -156,6 +175,17 @@ class InformationModelRegistrationModal extends Component {
                                     />
                                 </Col>
                             </Row>
+
+                            <Row>
+                                <Col lg={12} md={12} sm={12} xs={12}>
+                                    <ProgressBarWrapper
+                                        bsStyle="info"
+                                        uploadedPerCent={informationModels.uploadedPerCent}
+                                        waitingComponent={this.waitingComponent}
+                                        completed={informationModels.completed}
+                                    />
+                                </Col>
+                            </Row>
                         </Modal.Body>
                         <Modal.Footer>
                             {/*<Button type="submit" bsStyle="info" { ...opts }>Submit</Button>*/}
@@ -196,7 +226,7 @@ export default reduxForm({
     validate
 })(
     connect(mapStateToProps, {
-        changeModalState, registerInfoModel,
+        changeModalState, registerInfoModel, uploadingInfoModelProgress,
         dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
     })(InformationModelRegistrationModal)
 );

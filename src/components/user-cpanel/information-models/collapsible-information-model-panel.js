@@ -15,7 +15,7 @@ export default class CollapsibleInformationModelPanel extends Component {
         if (nextProps.infoModel !== this.state.infoModel)
             this.setState({
                 open : this.state.open,
-                infoModel : props.infoModel,
+                infoModel : nextProps.infoModel,
                 deleteModalOpen : this.state.deleteModalOpen
             });
     }

@@ -12,6 +12,7 @@ export const FETCH_USER_PLATFORMS = 'FETCH_USER_PLATFORMS';
 export const FETCH_USER_INFORMATION_MODELS = 'FETCH_USER_INFORMATION_MODELS';
 export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
 export const REGISTER_INFO_MODEL = 'REGISTER_INFO_MODEL';
+export const UPLOADING_INFO_MODEL_PROGRESS = 'UPLOADING_INFO_MODEL_PROGRESS';
 export const DELETE_PLATFORM = 'DELETE_PLATFORM';
 export const DELETE_INFO_MODEL = 'DELETE_INFO_MODEL';
 export const DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT = 'DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT';
@@ -204,7 +205,7 @@ export function deletePlatform(platformId) {
     };
 }
 
-export function registerInfoModel(props, cb) {
+export function registerInfoModel(props, cb, uploadingInfoModelProgress) {
     const url = `${ROOT_URL}/user/cpanel/register_information_model`;
     const customHeaders = { ...headers, ['Content-Type'] : 'multipart/form-data' };
     let formData = new FormData();
@@ -216,7 +217,12 @@ export function registerInfoModel(props, cb) {
         url: url,
         method: 'post',
         data: formData,
-        headers: customHeaders
+        headers: customHeaders,
+        onUploadProgress: function (progressEvent) {
+            if (progressEvent.lengthComputable) {
+                uploadingInfoModelProgress(progressEvent.loaded / progressEvent.total * 100)
+            }
+        }
     };
 
     const request = axios.request(config)
@@ -228,6 +234,13 @@ export function registerInfoModel(props, cb) {
     return {
         type: REGISTER_INFO_MODEL,
         payload: request
+    };
+}
+
+export function uploadingInfoModelProgress(loadedPerCent) {
+    return {
+        type: UPLOADING_INFO_MODEL_PROGRESS,
+        payload: Math.round(loadedPerCent)
     };
 }
 
