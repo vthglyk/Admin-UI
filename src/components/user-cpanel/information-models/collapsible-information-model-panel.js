@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Panel, Glyphicon, FormGroup, FormControl, ControlLabel, Button, Row, Col, Modal } from 'react-bootstrap';
+import { Panel, Glyphicon, Button, Modal } from 'react-bootstrap';
+import InfoModelPanelBody from './info-model-panel-body';
+import InfoModelDeleteModal from './info-model-delete-modal';
 
 export default class CollapsibleInformationModelPanel extends Component {
     constructor(props) {
@@ -37,16 +39,6 @@ export default class CollapsibleInformationModelPanel extends Component {
         this.closeDeleteModal();
     }
 
-    renderInputField(value, label, type) {
-        return (
-            <FormGroup>
-                {label ? <ControlLabel>{label}</ControlLabel> : ""}
-                <FormControl
-                    type={type} value={value} disabled={true} />
-            </FormGroup>
-        );
-    }
-
     render() {
         const { infoModel } = this.state;
 
@@ -60,44 +52,15 @@ export default class CollapsibleInformationModelPanel extends Component {
                     <Glyphicon glyph={this.state.open ? "minus" : "plus"} className="pull-right" />
                 </Panel.Heading>
                 <Panel.Collapse>
-                    <Panel.Body>
-                        <Row>
-                            <Col sm={6}>
-                                {this.renderInputField(infoModel.name, "Name", "text")}
-                            </Col>
-                            <Col sm={6}>
-                                {this.renderInputField(infoModel.id, "Id", "text")}
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col sm={6}>
-                                {this.renderInputField(infoModel.uri, "Uri", "text")}
-                            </Col>
-                            <Col sm={6}>
-                                {this.renderInputField(infoModel.rdfFormat, "RDF Format", "text")}
-                            </Col>
-                        </Row>
-                    </Panel.Body>
+                    <InfoModelPanelBody infoModel={infoModel} />
                 </Panel.Collapse>
                 <Panel.Footer className="info-model-info-footer">
-                    <Button
-                        className="btn-warning-delete"
-                        bsStyle="warning"
-                        onClick={this.openDeleteModal.bind(this)}>
-                        Delete
-                    </Button>
-                    <Modal show={this.state.deleteModalOpen} onHide={this.closeDeleteModal.bind(this)}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Are you sure you want to delete the information model
-                                <strong> {infoModel.name}</strong>?</Modal.Title>
-                        </Modal.Header>
-                            <Modal.Footer>
-                                <Button type="button" bsStyle="danger"
-                                        onClick={this.handleDeleteInfoModel.bind(this)}>Verify Deletion</Button>
-                                <Button type="button" bsStyle="default"
-                                        onClick={this.closeDeleteModal.bind(this)}>Close</Button>
-                            </Modal.Footer>
-                    </Modal>
+                    <InfoModelDeleteModal
+                        infoModel={infoModel}
+                        deleteModalOpen={this.state.deleteModalOpen}
+                        openDeleteModal={this.openDeleteModal.bind(this)}
+                        closeDeleteModal={this.closeDeleteModal.bind(this)}
+                        handleDeleteInfoModel={this.handleDeleteInfoModel.bind(this)} />
                 </Panel.Footer>
             </Panel>
         );

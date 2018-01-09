@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import { Panel, Glyphicon, FormGroup, FormControl, ControlLabel, Button, Row, Col, Modal } from 'react-bootstrap';
+import { Panel, Glyphicon, Button } from 'react-bootstrap';
+import PlatformPanelBody from './platform-panel-body';
+import PlatformDeleteModal from './platform-delete-modal';
 
 export default class CollapsiblePlatformPanel extends Component {
     constructor(props) {
@@ -41,17 +42,6 @@ export default class CollapsiblePlatformPanel extends Component {
         this.closeDeleteModal();
     }
 
-    renderInputField(value, label, type, componentClass, rows) {
-        return (
-            <FormGroup>
-                {label ? <ControlLabel>{label}</ControlLabel> : ""}
-                <FormControl
-                    componentClass={componentClass} rows={rows}
-                    type={type} value={value} disabled={true} />
-            </FormGroup>
-        );
-    }
-
     render() {
         const { platform, informationModels : {availableInfoModels} } = this.state;
         const informationModelId = platform.interworkingServices[0].informationModelId;
@@ -74,71 +64,22 @@ export default class CollapsiblePlatformPanel extends Component {
                     <Glyphicon glyph={this.state.open ? "minus" : "plus"} className="pull-right" />
                 </Panel.Heading>
                 <Panel.Collapse>
-                    <Panel.Body>
-                        <Row>
-                            <Col sm={6}>
-                                {this.renderInputField(platform.id, "Platform Id", "text", "input", null)}
-                            </Col>
-                            <Col sm={6}>
-                                {this.renderInputField(platform.name, "Platform Name", "text", "input", null)}
-                            </Col>
-                        </Row>
-                        {this.renderInputField(platform.description[0].description, "Platform Description", "text", "textarea", 3)}
-
-                        <FormGroup>
-                            <ControlLabel>Interworking Services</ControlLabel>
-                            <Row className="interworking-service">
-                                <Col sm={8}>
-                                    {this.renderInputField(platform.interworkingServices[0].url, null, "text", "input", null)}
-                                </Col>
-                                <Col sm={4}>
-                                    <Select
-                                        options={informationModelOptions}
-                                        value={informationModelOptions[0].value}
-                                        disabled={true} />
-                                </Col>
-                            </Row>
-                        </FormGroup>
-                        <Row>
-                            <Col sm={4}>
-                                <FormGroup>
-                                    <ControlLabel>Type</ControlLabel>
-                                    <Select
-                                        options={platformOptions}
-                                        value={platformOptions[0].value}
-                                        disabled={true} />
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                    </Panel.Body>
+                    <PlatformPanelBody
+                        platform={platform}
+                        informationModelOptions={informationModelOptions}
+                        platformOptions={platformOptions} />
                 </Panel.Collapse>
                 <Panel.Footer className="platform-info-footer">
                     <Button
                         bsStyle="info">
                         Get Configuration
                     </Button>
-                    <Button
-                        className="btn-warning-delete"
-                        bsStyle="warning"
-                        onClick={this.openDeleteModal.bind(this)}>
-                        Delete
-                    </Button>
-                    <Modal show={this.state.deleteModalOpen} onHide={this.closeDeleteModal.bind(this)}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Are you sure you want to delete the platform
-                                <strong> {platform.name}</strong>?</Modal.Title>
-                        </Modal.Header>
-                            <Modal.Body>
-                                <h4 className="text-danger">Warning - if you delete this platform, some information may be lost!</h4>
-                                <p>(During release 1.1.0, make sure you have deleted all registered resources)</p>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button type="button" bsStyle="danger"
-                                        onClick={this.handleDeletePlatform.bind(this)}>Verify Deletion</Button>
-                                <Button type="button" bsStyle="default"
-                                        onClick={this.closeDeleteModal.bind(this)}>Close</Button>
-                            </Modal.Footer>
-                    </Modal>
+                    <PlatformDeleteModal
+                        platform={platform}
+                        deleteModalOpen={this.state.deleteModalOpen}
+                        openDeleteModal={this.openDeleteModal.bind(this)}
+                        closeDeleteModal={this.closeDeleteModal.bind(this)}
+                        handleDeletePlatform={this.handleDeletePlatform.bind(this)} />
                 </Panel.Footer>
             </Panel>
         );
