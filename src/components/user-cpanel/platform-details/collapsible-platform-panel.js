@@ -69,7 +69,7 @@ export default class CollapsiblePlatformPanel extends Component {
                    expanded={this.state.open} onToggle={() => {}}>
                 <Panel.Heading onClick={this.togglePanel}>
                     <Panel.Title componentClass="h3">
-                       con {platform.name}
+                       {platform.name}
                     </Panel.Title>
                     <Glyphicon glyph={this.state.open ? "minus" : "plus"} className="pull-right" />
                 </Panel.Heading>
