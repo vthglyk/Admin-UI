@@ -44,6 +44,7 @@ class PlatformRegistrationModal extends Component {
 
     close() {
         this.props.changeModalState(PLATFORM_REGISTRATION_MODAL, false);
+        this.props.reset();
     }
 
     informationModels = () => {
@@ -79,7 +80,7 @@ class PlatformRegistrationModal extends Component {
     }
 
 
-    renderInputField(field) {
+    renderInputField = (field) => {
         const { input, type, placeholder, componentClass, rows, subElement, errorField,
             label, helpMessage, maxLength, meta : { touched, invalid, error } } = field;
         const validationState = getValidationState(input.value, touched, invalid);
@@ -95,12 +96,12 @@ class PlatformRegistrationModal extends Component {
                 <FieldError error={errorField} />
             </FormGroup>
         );
-    }
+    };
 
     render() {
         const { handleSubmit, modalState, informationModels,
             userPlatforms, platformRegistrationValidity } = this.props;
-        const opts = { disabled : !platformRegistrationValidity};
+        const opts = { disabled : !platformRegistrationValidity };
 
         return(
             <Fragment>
@@ -175,7 +176,7 @@ class PlatformRegistrationModal extends Component {
                                 </Row>
                             </FormGroup>
                             <Row>
-                                <Col sm={4}>
+                                <Col sm={6}>
                                     <FormGroup controlId="type">
                                         <ControlLabel>Type</ControlLabel>
                                         <Field

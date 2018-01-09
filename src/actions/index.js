@@ -211,7 +211,7 @@ export function registerInfoModel(props, cb, uploadingInfoModelProgress) {
     let formData = new FormData();
     formData.append('info-model-name', props.name);
     formData.append('info-model-uri', props.uri);
-    formData.append('info-model-rdf', props.rdf[0]);
+    formData.append('info-model-rdf', props.rdf.file);
 
     const config = {
         url: url,

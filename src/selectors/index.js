@@ -1,14 +1,22 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 
-const getPlatformRegistrationFormErrors = (state) => state.form.PlatformRegistrationForm.syncErrors;
+const getPlatformRegistrationForm = (state) => state.form.PlatformRegistrationForm;
+const getInfoModelRegistrationForm = (state) => state.form.InformationModelRegistrationForm;
+
+const checkForm =  (form) => {
+    const { syncErrors, anyTouched } = form;
+    const noErrors = _.filter(syncErrors, (error) => {
+        // Filtering the nulls
+        return error;
+    }).length;
+    return !noErrors && anyTouched;
+};
 
 export const getPlatformRegistrationValidity = createSelector(
-    [ getPlatformRegistrationFormErrors ],
-    (errors) => {
-        const noErrors = _.filter(errors, (error) => {
-            return error;
-        }).length;
-        return !noErrors;
-    }
+    [ getPlatformRegistrationForm ], checkForm
+);
+
+export const getInfoModelRegistrationValidity = createSelector(
+    [ getInfoModelRegistrationForm ], checkForm
 );

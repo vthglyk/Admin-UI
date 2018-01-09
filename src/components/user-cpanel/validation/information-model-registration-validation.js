@@ -12,3 +12,18 @@ export function validateUri(value) {
     } else
         return null;
 }
+
+export function validateRdfExtension(value) {
+
+    if (value && value.file) {
+        const { file } = value;
+        const pattern = new RegExp('((\\.ttl)|(\\.nt)|(\\.rdf)|(\\.xml)|(\\.n3)|(\\.jsonld))$');
+
+        if (!pattern.test(file.name)) {
+            return "This format is not supported";
+        } else
+            return null;
+    } else
+        return "This field is required";
+
+}
