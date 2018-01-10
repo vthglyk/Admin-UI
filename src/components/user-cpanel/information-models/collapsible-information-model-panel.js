@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Panel, Glyphicon, Button, Modal } from "react-bootstrap";
+import { Panel, Glyphicon, Button } from "react-bootstrap";
 import InfoModelPanelBody from "./info-model-panel-body";
-import InfoModelDeleteModal from "./info-model-delete-modal";
 
 export default class CollapsibleInformationModelPanel extends Component {
     constructor(props) {
@@ -9,7 +8,6 @@ export default class CollapsibleInformationModelPanel extends Component {
         this.state = {
             open : false,
             infoModel : props.infoModel,
-            deleteModalOpen : false
         }
     }
 
@@ -17,27 +15,17 @@ export default class CollapsibleInformationModelPanel extends Component {
         if (nextProps.infoModel !== this.state.infoModel)
             this.setState({
                 open : this.state.open,
-                infoModel : nextProps.infoModel,
-                deleteModalOpen : this.state.deleteModalOpen
+                infoModel : nextProps.infoModel
             });
     }
 
-    togglePanel = (e) => {
+    togglePanel = () => {
         this.setState({...this.state, open : !this.state.open});
     };
 
-    openDeleteModal() {
-        this.setState({...this.state, deleteModalOpen : true});
-    }
-
-    closeDeleteModal() {
-        this.setState({...this.state, deleteModalOpen : false});
-    }
-
-    handleDeleteInfoModel() {
-        this.props.onDelete(this.state.infoModel.id);
-        this.closeDeleteModal();
-    }
+    handleOpenDeleteModal = () => {
+        this.props.openDeleteModal(this.props.infoModel.id);
+    };
 
     render() {
         const { infoModel } = this.state;
@@ -55,12 +43,13 @@ export default class CollapsibleInformationModelPanel extends Component {
                     <InfoModelPanelBody infoModel={infoModel} />
                 </Panel.Collapse>
                 <Panel.Footer className="info-model-info-footer">
-                    <InfoModelDeleteModal
-                        infoModel={infoModel}
-                        deleteModalOpen={this.state.deleteModalOpen}
-                        openDeleteModal={this.openDeleteModal.bind(this)}
-                        closeDeleteModal={this.closeDeleteModal.bind(this)}
-                        handleDeleteInfoModel={this.handleDeleteInfoModel.bind(this)} />
+                    <Button
+                        className="btn-warning-delete"
+                        bsStyle="warning"
+                        onClick={this.handleOpenDeleteModal.bind(this)}>
+                        Delete
+                    </Button>
+
                 </Panel.Footer>
             </Panel>
         );

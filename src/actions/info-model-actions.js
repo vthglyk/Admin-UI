@@ -9,6 +9,8 @@ export const FETCH_USER_INFORMATION_MODELS = "FETCH_USER_INFORMATION_MODELS";
 export const REGISTER_INFO_MODEL = "REGISTER_INFO_MODEL";
 export const UPLOADING_INFO_MODEL_PROGRESS = "UPLOADING_INFO_MODEL_PROGRESS";
 export const DELETE_INFO_MODEL = "DELETE_INFO_MODEL";
+export const ACTIVATE_INFO_MODEL_DELETE_MODAL = "ACTIVATE_INFO_MODEL_DELETE_MODAL";
+export const DEACTIVATE_INFO_MODEL_DELETE_MODAL = "DEACTIVATE_INFO_MODEL_DELETE_MODAL";
 
 export function fetchAllInformationModels() {
     const url = `${ROOT_URL}/user/cpanel/list_all_info_models`;
@@ -101,5 +103,18 @@ export function deleteInfoModel(infoModelId) {
     return {
         type: DELETE_INFO_MODEL,
         payload: request
+    };
+}
+
+export function activateInfoModelDeleteModal(infoModelId) {
+    return {
+        type: ACTIVATE_INFO_MODEL_DELETE_MODAL,
+        payload: infoModelId
+    };
+}
+
+export function deactivateInfoModelDeleteModal() {
+    return {
+        type: DEACTIVATE_INFO_MODEL_DELETE_MODAL,
     };
 }

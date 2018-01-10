@@ -2,13 +2,14 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 import CollapsibleInformationModelPanel from "./collapsible-information-model-panel";
+import InfoModelDeleteModal from "./info-model-delete-modal";
 import { AlertDismissable } from "../../../helpers/errors";
 import {
-    deleteInfoModel
+    fetchUserInformationModels, deleteInfoModel,
+    activateInfoModelDeleteModal, deactivateInfoModelDeleteModal
 } from "../../../actions/info-model-actions";
 import { dismissInfoModelDeletionSuccessAlert, dismissInfoModelDeletionErrorAlert
 } from "../../../actions/dismiss-alerts-actions";
-import {fetchUserInformationModels} from "../../../actions/info-model-actions";
 
 class InformationModelList extends Component {
 
@@ -16,8 +17,28 @@ class InformationModelList extends Component {
         this.props.fetchUserInformationModels();
     }
 
+    handleDeleteInfoModel= () => {
+        this.props.deleteInfoModel(this.props.infoModelDeleteModal.infoModelIdToDelete);
+        this.props.deactivateInfoModelDeleteModal();
+    };
+
+    showInfoModelDeleteModal = (infoModelIdToDelete, availableUserInfoModels,
+                                deactivateInfoModelDeleteModal, handleDeleteInfoModel) => {
+        return (
+            infoModelIdToDelete ?
+                <InfoModelDeleteModal
+                    infoModel={availableUserInfoModels[infoModelIdToDelete]}
+                    deleteModalOpen={!!infoModelIdToDelete}
+                    closeDeleteModal={deactivateInfoModelDeleteModal}
+                    handleDeleteInfoModel={handleDeleteInfoModel} />
+                : null
+        );
+    };
+
     render() {
         const { availableUserInfoModels, successfulInfoModelDeletion, infoModelDeletionError } = this.props.informationModels;
+        const { infoModelIdToDelete } = this.props.infoModelDeleteModal;
+
         return(
             <Fragment>
                 <AlertDismissable style="danger" message={infoModelDeletionError}
@@ -28,8 +49,13 @@ class InformationModelList extends Component {
                     return <CollapsibleInformationModelPanel
                         key={infoModel.id}
                         infoModel={infoModel}
-                        onDelete={this.props.deleteInfoModel} />
+                        openDeleteModal={this.props.activateInfoModelDeleteModal} />
                 })}
+
+                {
+                    this.showInfoModelDeleteModal(infoModelIdToDelete, availableUserInfoModels,
+                        this.props.deactivateInfoModelDeleteModal, this.handleDeleteInfoModel.bind(this))
+                }
             </Fragment>
         );
     }
@@ -38,7 +64,8 @@ class InformationModelList extends Component {
 
 function mapStateToProps(state) {
     return {
-        informationModels: state.informationModels
+        informationModels: state.informationModels,
+        infoModelDeleteModal: state.infoModelDeleteModal
     };
 }
 
@@ -46,5 +73,7 @@ export default connect(mapStateToProps, {
     fetchUserInformationModels,
     deleteInfoModel,
     dismissInfoModelDeletionSuccessAlert,
-    dismissInfoModelDeletionErrorAlert
+    dismissInfoModelDeletionErrorAlert,
+    activateInfoModelDeleteModal,
+    deactivateInfoModelDeleteModal
 })(InformationModelList);

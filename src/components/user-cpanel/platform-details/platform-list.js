@@ -5,14 +5,12 @@ import CollapsiblePlatformPanel from "./collapsible-platform-panel";
 import PlatformDeleteModal from "./platform-delete-modal";
 import { AlertDismissable } from "../../../helpers/errors";
 import {
-    fetchUserPlatforms, } from "../../../actions/platform-actions";
+    fetchUserPlatforms, activatePlatformDeleteModal,
+    deactivatePlatformDeleteModal, deletePlatform }
+    from "../../../actions/platform-actions";
 import {
     dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
 } from "../../../actions/dismiss-alerts-actions";
-import {
-    activatePlatformDeleteModal, deactivatePlatformDeleteModal,
-    deletePlatform
-} from "../../../actions/platform-actions";
 
 class PlatformPanelList extends Component {
 
@@ -56,8 +54,10 @@ class PlatformPanelList extends Component {
                         openDeleteModal={this.props.activatePlatformDeleteModal} />
                 })}
 
-                {this.showPlatformDeleteModal(platformIdToDelete, availablePlatforms,
-                    this.props.deactivatePlatformDeleteModal, this.handleDeletePlatform.bind(this))}
+                {
+                    this.showPlatformDeleteModal(platformIdToDelete, availablePlatforms,
+                        this.props.deactivatePlatformDeleteModal, this.handleDeletePlatform.bind(this))
+                }
 
 
             </Fragment>

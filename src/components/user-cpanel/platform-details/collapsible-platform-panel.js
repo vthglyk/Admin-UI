@@ -8,8 +8,7 @@ export default class CollapsiblePlatformPanel extends Component {
         this.state = {
             open : false,
             platform : props.platform,
-            informationModels : props.informationModels,
-            deleteModalOpen : false
+            informationModels : props.informationModels
         }
     }
 
@@ -19,12 +18,11 @@ export default class CollapsiblePlatformPanel extends Component {
             this.setState({
                 open : this.state.open,
                 platform : nextProps.platform,
-                informationModels : nextProps.informationModels,
-                deleteModalOpen : this.state.deleteModalOpen
+                informationModels : nextProps.informationModels
             });
     }
 
-    togglePanel = (e) => {
+    togglePanel = () => {
         this.setState({...this.state, open : !this.state.open});
     };
 

@@ -27,19 +27,6 @@ export function fetchUserPlatforms() {
     };
 }
 
-export function activatePlatformDeleteModal(platformId) {
-    return {
-        type: ACTIVATE_PLATFORM_DELETE_MODAL,
-        payload: platformId
-    };
-}
-
-export function deactivatePlatformDeleteModal() {
-    return {
-        type: DEACTIVATE_PLATFORM_DELETE_MODAL,
-    };
-}
-
 export function registerPlatform(platform, cb) {
     const url = `${ROOT_URL}/user/cpanel/register_platform`;
 
@@ -81,5 +68,18 @@ export function deletePlatform(platformId) {
     return {
         type: DELETE_PLATFORM,
         payload: request
+    };
+}
+
+export function activatePlatformDeleteModal(platformId) {
+    return {
+        type: ACTIVATE_PLATFORM_DELETE_MODAL,
+        payload: platformId
+    };
+}
+
+export function deactivatePlatformDeleteModal() {
+    return {
+        type: DEACTIVATE_PLATFORM_DELETE_MODAL,
     };
 }
