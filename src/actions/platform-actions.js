@@ -1,6 +1,7 @@
-import {ROOT_URL} from "../configuration";
-import {headers} from "./index";
-import axios from "axios/index";
+import axios from "axios";
+import { ROOT_URL } from "../configuration";
+import { headers } from "./index";
+
 
 axios.defaults.withCredentials = true;
 
@@ -9,6 +10,8 @@ export const REGISTER_PLATFORM = "REGISTER_PLATFORM";
 export const DELETE_PLATFORM = "DELETE_PLATFORM";
 export const ACTIVATE_PLATFORM_DELETE_MODAL = "ACTIVATE_PLATFORM_DELETE_MODAL";
 export const DEACTIVATE_PLATFORM_DELETE_MODAL = "DEACTIVATE_PLATFORM_DELETE_MODAL";
+export const ACTIVATE_PLATFORM_CONFIG_MODAL = "ACTIVATE_PLATFORM_CONFIG_MODAL";
+export const DEACTIVATE_PLATFORM_CONFIG_MODAL = "DEACTIVATE_PLATFORM_CONFIG_MODAL";
 
 export function fetchUserPlatforms() {
     const url = `${ROOT_URL}/user/cpanel/list_user_platforms`;
@@ -81,5 +84,18 @@ export function activatePlatformDeleteModal(platformId) {
 export function deactivatePlatformDeleteModal() {
     return {
         type: DEACTIVATE_PLATFORM_DELETE_MODAL,
+    };
+}
+
+export function activatePlatformConfigModal(platformId) {
+    return {
+        type: ACTIVATE_PLATFORM_CONFIG_MODAL,
+        payload: platformId
+    };
+}
+
+export function deactivatePlatformConfigModal() {
+    return {
+        type: DEACTIVATE_PLATFORM_CONFIG_MODAL,
     };
 }

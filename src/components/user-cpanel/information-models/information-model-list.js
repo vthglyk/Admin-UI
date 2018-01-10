@@ -25,7 +25,7 @@ class InformationModelList extends Component {
     showInfoModelDeleteModal = (infoModelIdToDelete, availableUserInfoModels,
                                 deactivateInfoModelDeleteModal, handleDeleteInfoModel) => {
         return (
-            infoModelIdToDelete ?
+            availableUserInfoModels ?
                 <InfoModelDeleteModal
                     infoModel={availableUserInfoModels[infoModelIdToDelete]}
                     deleteModalOpen={!!infoModelIdToDelete}

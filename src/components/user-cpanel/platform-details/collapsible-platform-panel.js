@@ -30,6 +30,10 @@ export default class CollapsiblePlatformPanel extends Component {
         this.props.openDeleteModal(this.props.platform.id);
     };
 
+    handleOpenConfigModal = () => {
+        this.props.openConfigModal(this.props.platform.id);
+    };
+
     render() {
         const { platform, informationModels : {availableInfoModels} } = this.state;
         const informationModelId = platform.interworkingServices[0].informationModelId;
@@ -59,7 +63,8 @@ export default class CollapsiblePlatformPanel extends Component {
                 </Panel.Collapse>
                 <Panel.Footer className="platform-info-footer">
                     <Button
-                        bsStyle="info">
+                        bsStyle="info"
+                        onClick={this.handleOpenConfigModal.bind(this)}>
                         Get Configuration
                     </Button>
                     <Button

@@ -4,7 +4,7 @@ import { Field, reduxForm } from "redux-form";
 import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock, ProgressBar } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import { INFORMATION_MODEL_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
-import { getInfoModelRegistrationValidity } from "../../../selectors/index";
+import { getInfoModelRegistrationValidity } from "../../../selectors";
 import ProgressBarWrapper from "../../../helpers/ProgressBarWrapper";
 import { FieldError, AlertDismissable } from "../../../helpers/errors";
 import { getValidationState } from "../../../components/user-cpanel/validation/helpers";

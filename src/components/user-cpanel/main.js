@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Col, Tab, Nav, NavItem } from "react-bootstrap";
-import UserDetails from "./user-details/index";
-import ClientDetails from "./client-details/index";
-import PlatformDetails from "./platform-details/index";
-import InformationModels from "./information-models/index";
+import UserDetails from "./user-details";
+import ClientDetails from "./client-details";
+import PlatformDetails from "./platform-details";
+import InformationModels from "./information-models";
 
 const Main = () => {
     return(

@@ -6,7 +6,7 @@ import _ from "lodash";
 import { PLATFORM_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
 import RFReactSelect from "../../../helpers/redux-form-react-selector-integrator";
 import { InterworkingService, Platform } from "../../../helpers/object-definitions";
-import { getPlatformRegistrationValidity } from "../../../selectors/index";
+import { getPlatformRegistrationValidity } from "../../../selectors";
 import { FieldError, AlertDismissable } from "../../../helpers/errors";
 import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
 import { changeModalState} from "../../../actions";

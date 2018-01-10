@@ -3,16 +3,18 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import CollapsiblePlatformPanel from "./collapsible-platform-panel";
 import PlatformDeleteModal from "./platform-delete-modal";
+import PlatformConfigModal from "./platform-config-modal";
 import { AlertDismissable } from "../../../helpers/errors";
 import {
-    fetchUserPlatforms, activatePlatformDeleteModal,
-    deactivatePlatformDeleteModal, deletePlatform }
-    from "../../../actions/platform-actions";
+    fetchUserPlatforms, deletePlatform,
+    activatePlatformDeleteModal, deactivatePlatformDeleteModal,
+    activatePlatformConfigModal, deactivatePlatformConfigModal
+} from "../../../actions/platform-actions";
 import {
     dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
 } from "../../../actions/dismiss-alerts-actions";
 
-class PlatformPanelList extends Component {
+class PlatformList extends Component {
 
     componentDidMount() {
         this.props.fetchUserPlatforms();
@@ -23,10 +25,15 @@ class PlatformPanelList extends Component {
         this.props.deactivatePlatformDeleteModal();
     };
 
+    handleConfigPlatform = () => {
+        console.log("handleConfigPlatform");
+        this.props.deactivatePlatformConfigModal();
+    };
+
     showPlatformDeleteModal = (platformIdToDelete, availablePlatforms,
                                deactivatePlatformDeleteModal, handleDeletePlatform) => {
         return (
-            platformIdToDelete ?
+            availablePlatforms ?
                 <PlatformDeleteModal
                     platform={availablePlatforms[platformIdToDelete]}
                     deleteModalOpen={!!platformIdToDelete}
@@ -36,9 +43,23 @@ class PlatformPanelList extends Component {
         );
     };
 
+    showPlatformConfigModal = (platformId, availablePlatforms,
+                               deactivatePlatformConfigModal, handleDeletePlatform) => {
+        return (
+            availablePlatforms ?
+                <PlatformConfigModal
+                    platform={availablePlatforms[platformId]}
+                    configModalOpen={!!platformId}
+                    closeConfigModal={deactivatePlatformConfigModal}
+                    handleConfigPlatform={handleDeletePlatform} />
+                : null
+        );
+    };
+
     render() {
         const { availablePlatforms, successfulPlatformDeletion, platformDeletionError } = this.props.userPlatforms;
         const { platformIdToDelete } = this.props.platformDeleteModal;
+        const { platformId } = this.props.platformConfigModal;
 
         return(
             <Fragment>
@@ -51,12 +72,18 @@ class PlatformPanelList extends Component {
                         key={platform.id}
                         platform={platform}
                         informationModels={this.props.informationModels}
-                        openDeleteModal={this.props.activatePlatformDeleteModal} />
+                        openDeleteModal={this.props.activatePlatformDeleteModal}
+                        openConfigModal={this.props.activatePlatformConfigModal}/>
                 })}
 
                 {
                     this.showPlatformDeleteModal(platformIdToDelete, availablePlatforms,
                         this.props.deactivatePlatformDeleteModal, this.handleDeletePlatform.bind(this))
+                }
+
+                {
+                    this.showPlatformConfigModal(platformId, availablePlatforms,
+                        this.props.deactivatePlatformConfigModal, this.handleConfigPlatform.bind(this))
                 }
 
 
@@ -70,7 +97,8 @@ function mapStateToProps(state) {
     return {
         userPlatforms: state.userPlatforms,
         informationModels: state.informationModels,
-        platformDeleteModal: state.platformDeleteModal
+        platformDeleteModal: state.platformDeleteModal,
+        platformConfigModal: state.platformConfigModal
     };
 }
 
@@ -79,6 +107,8 @@ export default connect(mapStateToProps, {
     deletePlatform,
     activatePlatformDeleteModal,
     deactivatePlatformDeleteModal,
+    activatePlatformConfigModal,
+    deactivatePlatformConfigModal,
     dismissPlatformDeletionSuccessAlert,
     dismissPlatformDeletionErrorAlert
-})(PlatformPanelList);
+})(PlatformList);
