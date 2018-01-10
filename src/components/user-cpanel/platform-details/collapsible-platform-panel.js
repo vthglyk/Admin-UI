@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Panel, Glyphicon, Button } from 'react-bootstrap';
 import PlatformPanelBody from './platform-panel-body';
-import PlatformDeleteModal from './platform-delete-modal';
 
 export default class CollapsiblePlatformPanel extends Component {
     constructor(props) {
@@ -29,18 +28,9 @@ export default class CollapsiblePlatformPanel extends Component {
         this.setState({...this.state, open : !this.state.open});
     };
 
-    openDeleteModal() {
-        this.setState({...this.state, deleteModalOpen : true});
-    }
-
-    closeDeleteModal() {
-        this.setState({...this.state, deleteModalOpen : false});
-    }
-
-    handleDeletePlatform() {
-        this.props.onDelete(this.state.platform.id);
-        this.closeDeleteModal();
-    }
+    handleOpenDeleteModal = () => {
+        this.props.openDeleteModal(this.props.platform.id);
+    };
 
     render() {
         const { platform, informationModels : {availableInfoModels} } = this.state;
@@ -74,12 +64,12 @@ export default class CollapsiblePlatformPanel extends Component {
                         bsStyle="info">
                         Get Configuration
                     </Button>
-                    <PlatformDeleteModal
-                        platform={platform}
-                        deleteModalOpen={this.state.deleteModalOpen}
-                        openDeleteModal={this.openDeleteModal.bind(this)}
-                        closeDeleteModal={this.closeDeleteModal.bind(this)}
-                        handleDeletePlatform={this.handleDeletePlatform.bind(this)} />
+                    <Button
+                        className="btn-warning-delete"
+                        bsStyle="warning"
+                        onClick={this.handleOpenDeleteModal.bind(this)}>
+                        Delete
+                    </Button>
                 </Panel.Footer>
             </Panel>
         );

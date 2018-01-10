@@ -14,6 +14,8 @@ export const REGISTER_PLATFORM = 'REGISTER_PLATFORM';
 export const REGISTER_INFO_MODEL = 'REGISTER_INFO_MODEL';
 export const UPLOADING_INFO_MODEL_PROGRESS = 'UPLOADING_INFO_MODEL_PROGRESS';
 export const DELETE_PLATFORM = 'DELETE_PLATFORM';
+export const ACTIVATE_PLATFORM_DELETE_MODAL = 'ACTIVATE_PLATFORM_DELETE_MODAL';
+export const DEACTIVATE_PLATFORM_DELETE_MODAL = 'DEACTIVATE_PLATFORM_DELETE_MODAL';
 export const DELETE_INFO_MODEL = 'DELETE_INFO_MODEL';
 export const DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT = 'DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT';
 export const DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT = 'DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT';
@@ -158,6 +160,19 @@ export function fetchUserInformationModels() {
     return {
         type: FETCH_USER_INFORMATION_MODELS,
         payload: request
+    };
+}
+
+export function activatePlatformDeleteModal(platformId) {
+    return {
+        type: ACTIVATE_PLATFORM_DELETE_MODAL,
+        payload: platformId
+    };
+}
+
+export function deactivatePlatformDeleteModal() {
+    return {
+        type: DEACTIVATE_PLATFORM_DELETE_MODAL,
     };
 }
 
