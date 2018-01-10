@@ -1,7 +1,7 @@
-import React from 'react';
-import SignInModal from '../modals/specific/sign-in-modal'
-import UserRegisterModal from '../modals/specific/user-registration-modal'
-import { IMAGE_FOLDER } from '../../configuration';
+import React from "react";
+import SignInModal from "../modals/specific/sign-in-modal";
+import UserRegisterModal from "../modals/specific/user-registration-modal";
+import { IMAGE_FOLDER } from "../../configuration";
 
 const UserManagement = (props) => {
     return (

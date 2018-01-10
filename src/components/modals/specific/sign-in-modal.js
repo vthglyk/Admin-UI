@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { Modal, Button, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+import { Modal, Button, FormControl, InputGroup, Glyphicon } from "react-bootstrap";
 import { LOGIN_MODAL } from "../../../reducers/modal-reducer";
-import { userLogin, changeModalState } from "../../../actions";
+import { changeModalState } from "../../../actions";
 import { FieldError } from "../../../helpers/errors";
 import { CPANEL_URL } from "../../../configuration";
+import {userLogin} from "../../../actions/user-actions";
 
 class SignInModal extends Component {
 

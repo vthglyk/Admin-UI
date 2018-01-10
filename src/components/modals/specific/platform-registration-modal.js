@@ -1,21 +1,24 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock } from 'react-bootstrap';
-import _ from 'lodash';
+import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock } from "react-bootstrap";
+import _ from "lodash";
 import { PLATFORM_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
 import RFReactSelect from "../../../helpers/redux-form-react-selector-integrator";
 import { InterworkingService, Platform } from "../../../helpers/object-definitions";
 import { getPlatformRegistrationValidity } from "../../../selectors/index";
-import { FieldError, AlertDismissable } from '../../../helpers/errors';
+import { FieldError, AlertDismissable } from "../../../helpers/errors";
 import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
-import { changeModalState, fetchAllInformationModels,
-    registerPlatform, dismissPlatformRegistrationSuccessAlert,
-    dismissPlatformRegistrationErrorAlert } from "../../../actions";
+import { changeModalState} from "../../../actions";
+import { dismissPlatformRegistrationSuccessAlert,
+    dismissPlatformRegistrationErrorAlert
+} from "../../../actions/dismiss-alerts-actions";
 import {
     validateId, validateName, validateDescription,
     validateInterworkingInterfaceUrl, validateInformationModel
 } from "../../../components/user-cpanel/validation/platform-registration-validation";
+import {fetchAllInformationModels} from "../../../actions/info-model-actions";
+import {registerPlatform} from "../../../actions/platform-actions";
 
 class PlatformRegistrationModal extends Component {
 

@@ -1,14 +1,18 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import CollapsiblePlatformPanel from './collapsible-platform-panel';
-import PlatformDeleteModal from './platform-delete-modal';
-import { AlertDismissable } from '../../../helpers/errors';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import _ from "lodash";
+import CollapsiblePlatformPanel from "./collapsible-platform-panel";
+import PlatformDeleteModal from "./platform-delete-modal";
+import { AlertDismissable } from "../../../helpers/errors";
 import {
-    fetchUserPlatforms, deletePlatform,
-    activatePlatformDeleteModal,deactivatePlatformDeleteModal,
+    fetchUserPlatforms, } from "../../../actions/platform-actions";
+import {
     dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
-} from '../../../actions/index';
+} from "../../../actions/dismiss-alerts-actions";
+import {
+    activatePlatformDeleteModal, deactivatePlatformDeleteModal,
+    deletePlatform
+} from "../../../actions/platform-actions";
 
 class PlatformPanelList extends Component {
 
@@ -29,7 +33,7 @@ class PlatformPanelList extends Component {
                     platform={availablePlatforms[platformIdToDelete]}
                     deleteModalOpen={!!platformIdToDelete}
                     closeDeleteModal={deactivatePlatformDeleteModal}
-                    handleDeletePlatform={this.handleDeletePlatform.bind(this)} />
+                    handleDeletePlatform={handleDeletePlatform} />
                 : null
         );
     };

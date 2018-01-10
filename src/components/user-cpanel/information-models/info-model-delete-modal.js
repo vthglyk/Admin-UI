@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import React, { Fragment } from "react";
+import { Button, Modal } from "react-bootstrap";
 
 const InfoModelDeleteModal = ({ infoModel, deleteModalOpen, openDeleteModal, closeDeleteModal, handleDeleteInfoModel }) => {
     return(

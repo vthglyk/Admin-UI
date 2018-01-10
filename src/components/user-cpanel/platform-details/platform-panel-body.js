@@ -1,7 +1,6 @@
-import React from 'react';
-import Select from 'react-select';
-
-import { Panel, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import React from "react";
+import Select from "react-select";
+import { Panel, Row, Col, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 const PlatformPanelBody = ({ platform, informationModelOptions, platformOptions }) => {
 

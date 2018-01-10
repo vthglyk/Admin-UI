@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import ReactDOM from 'react-dom';
+import React, {Fragment} from "react";
+import ReactDOM from "react-dom";
 
 const appendedElements = {};
 const appendElementContainer = document.querySelector('.append-element-container');

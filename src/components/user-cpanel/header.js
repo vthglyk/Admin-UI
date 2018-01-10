@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import React, { Component } from "react";
+import { ButtonGroup, DropdownButton, MenuItem } from "react-bootstrap";
 import { IMAGE_FOLDER } from "../../configuration";
-import { userLogout } from "../../actions";
+import { userLogout } from "../../actions/user-actions";
 import { connect } from "react-redux";
 
 class Header extends Component {

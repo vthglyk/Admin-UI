@@ -1,4 +1,4 @@
-import { lengthValidation } from './helpers';
+import { lengthValidation } from "./helpers";
 
 export function validateName(value) {
     return lengthValidation("name", value ? value.length : 0, 2, 30);

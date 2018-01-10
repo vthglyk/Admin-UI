@@ -1,9 +1,9 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { store } from '../../../index';
-import AppendBodyComponent from '../../../helpers/append-body-component';
-import ModalContent from './modal-content';
-import uuid from '../../../helpers/uuid';
+import React from "react";
+import { Provider } from "react-redux";
+import { store } from "../../../index";
+import AppendBodyComponent from "../../../helpers/append-body-component";
+import ModalContent from "./modal-content";
+import uuid from "../../../helpers/uuid";
 
 export default class Modal extends AppendBodyComponent {
     constructor(props) {

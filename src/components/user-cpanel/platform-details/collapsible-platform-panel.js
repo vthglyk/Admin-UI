@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Panel, Glyphicon, Button } from 'react-bootstrap';
-import PlatformPanelBody from './platform-panel-body';
+import React, { Component } from "react";
+import { Panel, Glyphicon, Button } from "react-bootstrap";
+import PlatformPanelBody from "./platform-panel-body";
 
 export default class CollapsiblePlatformPanel extends Component {
     constructor(props) {

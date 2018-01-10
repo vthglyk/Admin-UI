@@ -1,9 +1,13 @@
 import {
-    FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS, DELETE_INFO_MODEL, REGISTER_INFO_MODEL,
+    DELETE_INFO_MODEL} from "../actions/info-model-actions";
+import {
     DISMISS_INFO_MODEL_DELETION_ERROR_ALERT, DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT,
-    DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT,
-    UPLOADING_INFO_MODEL_PROGRESS
-} from "../actions";
+    DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT
+} from "../actions/dismiss-alerts-actions";
+import {
+    FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS,
+    REGISTER_INFO_MODEL, UPLOADING_INFO_MODEL_PROGRESS
+} from "../actions/info-model-actions";
 
 export default function(state = {}, action) {
     switch(action.type) {
@@ -58,12 +62,18 @@ export default function(state = {}, action) {
                 for (let i = 0; i < errors.length; i++)
                     newState =  _.omit(newState, errors[i]);
 
+                let newAvailableInfoModels = {
+                    ...state.availableInfoModels,
+                    [id] : response
+                };
+
                 let newAvailableUserInfoModels = {
                     ...state.availableUserInfoModels,
                     [id] : response
                 };
                 return {
                     ...newState,
+                    availableInfoModels : newAvailableInfoModels,
                     availableUserInfoModels : newAvailableUserInfoModels,
                     successfulInfoModelRegistration,
                     completed: true

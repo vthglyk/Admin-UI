@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import CollapsibleInformationModelPanel from './collapsible-information-model-panel';
-import { AlertDismissable } from '../../../helpers/errors';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import _ from "lodash";
+import CollapsibleInformationModelPanel from "./collapsible-information-model-panel";
+import { AlertDismissable } from "../../../helpers/errors";
 import {
-    fetchUserInformationModels, deleteInfoModel,
-    dismissInfoModelDeletionSuccessAlert, dismissInfoModelDeletionErrorAlert
-} from '../../../actions/index';
+    deleteInfoModel
+} from "../../../actions/info-model-actions";
+import { dismissInfoModelDeletionSuccessAlert, dismissInfoModelDeletionErrorAlert
+} from "../../../actions/dismiss-alerts-actions";
+import {fetchUserInformationModels} from "../../../actions/info-model-actions";
 
 class InformationModelList extends Component {
 

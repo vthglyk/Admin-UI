@@ -1,11 +1,12 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { Modal, Button, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+import { Modal, Button, FormControl, InputGroup, Glyphicon } from "react-bootstrap";
 import RFReactSelect from "../../../helpers/redux-form-react-selector-integrator";
-import { fetchUserRoles, registerUser, changeModalState } from "../../../actions";
+import { changeModalState } from "../../../actions";
 import { USER_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
 import { FieldError } from "../../../helpers/errors";
+import {fetchUserRoles, registerUser} from "../../../actions/user-actions";
 
 class UserRegistrationModal extends Component {
 

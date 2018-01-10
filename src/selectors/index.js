@@ -1,5 +1,5 @@
-import { createSelector } from 'reselect';
-import _ from 'lodash';
+import { createSelector } from "reselect";
+import _ from "lodash";
 
 const getPlatformRegistrationForm = (state) => state.form.PlatformRegistrationForm;
 const getInfoModelRegistrationForm = (state) => state.form.InformationModelRegistrationForm;

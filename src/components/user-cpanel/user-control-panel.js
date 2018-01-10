@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import Header from './header';
-import Main from './main';
+import React, { Fragment } from "react";
+import Header from "./header";
+import Main from "./main";
 
 const UserControlPanel = (props) => {
     return(

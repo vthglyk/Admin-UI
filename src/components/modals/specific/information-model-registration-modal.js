@@ -1,20 +1,22 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock, ProgressBar } from 'react-bootstrap';
-import Dropzone from 'react-dropzone';
-import { INFORMATION_MODEL_REGISTRATION_MODAL } from '../../../reducers/modal-reducer';
-import { getInfoModelRegistrationValidity } from '../../../selectors/index';
-import ProgressBarWrapper from '../../../helpers/ProgressBarWrapper';
-import { FieldError, AlertDismissable } from '../../../helpers/errors';
-import { getValidationState } from '../../../components/user-cpanel/validation/helpers';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import { Modal, Button, FormGroup, FormControl, ControlLabel, Row, Col, HelpBlock, ProgressBar } from "react-bootstrap";
+import Dropzone from "react-dropzone";
+import { INFORMATION_MODEL_REGISTRATION_MODAL } from "../../../reducers/modal-reducer";
+import { getInfoModelRegistrationValidity } from "../../../selectors/index";
+import ProgressBarWrapper from "../../../helpers/ProgressBarWrapper";
+import { FieldError, AlertDismissable } from "../../../helpers/errors";
+import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
 import {
     validateName, validateUri, validateRdfExtension
-} from '../../../components/user-cpanel/validation/information-model-registration-validation';
+} from "../../../components/user-cpanel/validation/information-model-registration-validation";
 import {
-    changeModalState, registerInfoModel, uploadingInfoModelProgress,
+    changeModalState} from "../../../actions";
+import {
     dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
-} from '../../../actions';
+} from "../../../actions/dismiss-alerts-actions";
+import {registerInfoModel, uploadingInfoModelProgress} from "../../../actions/info-model-actions";
 
 class InformationModelRegistrationModal extends Component {
 

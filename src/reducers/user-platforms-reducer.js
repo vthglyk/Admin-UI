@@ -1,12 +1,11 @@
-import _ from 'lodash';
+import _ from "lodash";
 import {
-    FETCH_USER_PLATFORMS, DELETE_PLATFORM,
-    DISMISS_PLATFORM_DELETION_SUCCESS_ALERT, DISMISS_PLATFORM_DELETION_ERROR_ALERT
-} from '../actions/index';
+    FETCH_USER_PLATFORMS} from "../actions/platform-actions";
 import {
-    DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT, DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT,
-    REGISTER_PLATFORM
-} from "../actions";
+    DISMISS_PLATFORM_DELETION_SUCCESS_ALERT, DISMISS_PLATFORM_DELETION_ERROR_ALERT,
+    DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT, DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT
+} from "../actions/dismiss-alerts-actions";
+import {DELETE_PLATFORM, REGISTER_PLATFORM} from "../actions/platform-actions";
 
 export default function(state = {}, action) {
     switch(action.type) {

@@ -1,4 +1,4 @@
-import { lengthValidation } from './helpers';
+import { lengthValidation } from "./helpers";
 
 export function validateId(value) {
     const pattern = new RegExp('^[\\w-][\\w-][\\w-][\\w-]+$');

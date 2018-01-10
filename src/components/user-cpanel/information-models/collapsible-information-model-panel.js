@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Panel, Glyphicon, Button, Modal } from 'react-bootstrap';
-import InfoModelPanelBody from './info-model-panel-body';
-import InfoModelDeleteModal from './info-model-delete-modal';
+import React, { Component } from "react";
+import { Panel, Glyphicon, Button, Modal } from "react-bootstrap";
+import InfoModelPanelBody from "./info-model-panel-body";
+import InfoModelDeleteModal from "./info-model-delete-modal";
 
 export default class CollapsibleInformationModelPanel extends Component {
     constructor(props) {

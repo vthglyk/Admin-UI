@@ -1,5 +1,5 @@
-import React from 'react';
-import { Panel, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import React from "react";
+import { Panel, Row, Col, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 const InfoModelPanelBody = ({ infoModel }) => {
 

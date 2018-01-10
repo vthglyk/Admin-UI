@@ -1,4 +1,4 @@
-import { REGISTER_USER } from '../actions/index';
+import { REGISTER_USER } from "../actions/user-actions";
 
 const INITIAL_STATE = { validationErrors: {},  errorMessage: ""};
 
