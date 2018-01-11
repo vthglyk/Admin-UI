@@ -9,6 +9,7 @@ import reducers from "./reducers";
 import Home from "./components/home/home";
 import Success from "./components/success";
 import UserControlPanel from "./components/user-cpanel/user-control-panel";
+import AdminControlPanel from "./components/admin-cpanel/admin-cpanel";
 
 export const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(promise),
@@ -26,6 +27,7 @@ ReactDOM.render(
               <Route exact path="/administration" component={Home} />
               <Route path="/administration/success" component={Success} />
               <Route path="/administration/user/cpanel" component={UserControlPanel} />
+              <Route path="/administration/admin/cpanel" component={AdminControlPanel} />
           </Switch>
       </Router>
   </Provider>
