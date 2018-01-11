@@ -8,7 +8,8 @@ import {
     fetchUserInformationModels, deleteInfoModel,
     activateInfoModelDeleteModal, deactivateInfoModelDeleteModal
 } from "../../../actions/info-model-actions";
-import { dismissInfoModelDeletionSuccessAlert, dismissInfoModelDeletionErrorAlert
+import {
+    dismissAlert, DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT, DISMISS_INFO_MODEL_DELETION_ERROR_ALERT
 } from "../../../actions/dismiss-alerts-actions";
 
 class InformationModelList extends Component {
@@ -35,6 +36,14 @@ class InformationModelList extends Component {
         );
     };
 
+    dismissInfoModelDeletionSuccessAlert() {
+        this.props. dismissAlert(DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT)
+    }
+
+    dismissInfoModelDeletionErrorAlert() {
+        this.props. dismissAlert(DISMISS_INFO_MODEL_DELETION_ERROR_ALERT)
+    }
+
     render() {
         const { availableUserInfoModels, successfulInfoModelDeletion, infoModelDeletionError } = this.props.informationModels;
         const { infoModelIdToDelete } = this.props.infoModelDeleteModal;
@@ -42,9 +51,9 @@ class InformationModelList extends Component {
         return(
             <Fragment>
                 <AlertDismissable style="danger" message={infoModelDeletionError}
-                                  dismissHandler={this.props.dismissInfoModelDeletionErrorAlert} />
+                                  dismissHandler={this.dismissInfoModelDeletionErrorAlert.bind(this)} />
                 <AlertDismissable style="success" message={successfulInfoModelDeletion}
-                                  dismissHandler={this.props.dismissInfoModelDeletionSuccessAlert} />
+                                  dismissHandler={this.dismissInfoModelDeletionSuccessAlert.bind(this)} />
                 {_.map(availableUserInfoModels, (infoModel) => {
                     return <CollapsibleInformationModelPanel
                         key={infoModel.id}
@@ -72,8 +81,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     fetchUserInformationModels,
     deleteInfoModel,
-    dismissInfoModelDeletionSuccessAlert,
-    dismissInfoModelDeletionErrorAlert,
+    dismissAlert,
     activateInfoModelDeleteModal,
     deactivateInfoModelDeleteModal
 })(InformationModelList);

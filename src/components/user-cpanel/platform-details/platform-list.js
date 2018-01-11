@@ -11,7 +11,7 @@ import {
     activatePlatformConfigModal
 } from "../../../actions/platform-actions";
 import {
-    dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
+    dismissAlert, DISMISS_PLATFORM_DELETION_SUCCESS_ALERT, DISMISS_PLATFORM_DELETION_ERROR_ALERT
 } from "../../../actions/dismiss-alerts-actions";
 
 class PlatformList extends Component {
@@ -48,6 +48,14 @@ class PlatformList extends Component {
         );
     };
 
+    dismissPlatformDeletionSuccessAlert() {
+        this.props.dismissAlert(DISMISS_PLATFORM_DELETION_SUCCESS_ALERT)
+    }
+
+    dismissPlatformDeletionErrorAlert() {
+        this.props.dismissAlert(DISMISS_PLATFORM_DELETION_ERROR_ALERT)
+    }
+
     render() {
         const { availablePlatforms, successfulPlatformDeletion, platformDeletionError } = this.props.userPlatforms;
         const { platformIdToDelete } = this.props.platformDeleteModal;
@@ -56,9 +64,9 @@ class PlatformList extends Component {
         return(
             <Fragment>
                 <AlertDismissable style="danger" message={platformDeletionError}
-                                  dismissHandler={this.props.dismissPlatformDeletionErrorAlert} />
+                                  dismissHandler={this.dismissPlatformDeletionErrorAlert.bind(this)} />
                 <AlertDismissable style="success" message={successfulPlatformDeletion}
-                                  dismissHandler={this.props.dismissPlatformDeletionSuccessAlert} />
+                                  dismissHandler={this.dismissPlatformDeletionSuccessAlert.bind(this)} />
                 {_.map(availablePlatforms, (platform) => {
                     return <CollapsiblePlatformPanel
                         key={platform.id}
@@ -99,6 +107,5 @@ export default connect(mapStateToProps, {
     activatePlatformDeleteModal,
     deactivatePlatformDeleteModal,
     activatePlatformConfigModal,
-    dismissPlatformDeletionSuccessAlert,
-    dismissPlatformDeletionErrorAlert
+    dismissAlert
 })(PlatformList);

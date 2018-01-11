@@ -14,7 +14,7 @@ import {
 import {
     changeModalState} from "../../../actions";
 import {
-    dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
+    dismissAlert, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT, DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT
 } from "../../../actions/dismiss-alerts-actions";
 import {registerInfoModel, uploadingInfoModelProgress} from "../../../actions/info-model-actions";
 
@@ -44,6 +44,13 @@ class InformationModelRegistrationModal extends Component {
         );
     }
 
+    dismissInfoModelRegistrationSuccessAlert() {
+        this.props.dismissAlert(DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT)
+    }
+
+    dismissInfoModelRegistrationErrorAlert() {
+        this.props.dismissAlert(DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT)
+    }
 
     renderInputField = (field) => {
         const { input, type, placeholder, componentClass, rows, subElement, errorField,
@@ -134,7 +141,7 @@ class InformationModelRegistrationModal extends Component {
                 </Button>
 
                 <AlertDismissable style="success" message={informationModels.successfulInfoModelRegistration}
-                                  dismissHandler={this.props.dismissInfoModelRegistrationSuccessAlert} />
+                                  dismissHandler={this.dismissInfoModelRegistrationSuccessAlert.bind(this)} />
 
                 <Modal show={modalState[INFORMATION_MODEL_REGISTRATION_MODAL]} onHide={this.close.bind(this)}>
                     <Modal.Header closeButton>
@@ -143,7 +150,7 @@ class InformationModelRegistrationModal extends Component {
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                         <Modal.Body>
                             <AlertDismissable style="danger" message={informationModels.infoModelRegistrationError}
-                                              dismissHandler={this.props.dismissInfoModelRegistrationErrorAlert} />
+                                              dismissHandler={this.dismissInfoModelRegistrationErrorAlert.bind(this)} />
 
                             <Row>
                                 <Col lg={6} md={6} sm={6} xs={6}>
@@ -228,6 +235,6 @@ export default reduxForm({
 })(
     connect(mapStateToProps, {
         changeModalState, registerInfoModel, uploadingInfoModelProgress,
-        dismissInfoModelRegistrationSuccessAlert, dismissInfoModelRegistrationErrorAlert
+        dismissAlert
     })(InformationModelRegistrationModal)
 );

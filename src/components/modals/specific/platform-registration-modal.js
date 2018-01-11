@@ -10,8 +10,10 @@ import { getPlatformRegistrationValidity } from "../../../selectors";
 import { FieldError, AlertDismissable } from "../../../helpers/errors";
 import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
 import { changeModalState} from "../../../actions";
-import { dismissPlatformRegistrationSuccessAlert,
-    dismissPlatformRegistrationErrorAlert
+import {
+    dismissAlert,
+    DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT,
+    DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT
 } from "../../../actions/dismiss-alerts-actions";
 import {
     validateId, validateName, validateDescription,
@@ -55,6 +57,14 @@ class PlatformRegistrationModal extends Component {
             return({ value: model.id, label: model.name});
         });
     };
+
+    dismissPlatformRegistrationSuccessAlert() {
+        this.props.dismissAlert(DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT)
+    }
+
+    dismissPlatformRegistrationErrorAlert() {
+        this.props.dismissAlert(DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT)
+    }
 
     onSubmit(props) {
         let { id, name, description, interworkingServiceUrl, informationModel, type } = props;
@@ -115,7 +125,7 @@ class PlatformRegistrationModal extends Component {
                 </Button>
 
                 <AlertDismissable style="success" message={userPlatforms.successfulPlatformRegistration}
-                                  dismissHandler={this.props.dismissPlatformRegistrationSuccessAlert} />
+                                  dismissHandler={this.dismissPlatformRegistrationSuccessAlert.bind(this)} />
 
                 <Modal show={modalState[PLATFORM_REGISTRATION_MODAL]} onHide={this.close.bind(this)}>
                     <Modal.Header closeButton>
@@ -124,7 +134,7 @@ class PlatformRegistrationModal extends Component {
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                         <Modal.Body>
                             <AlertDismissable style="danger" message={userPlatforms.platformRegistrationError}
-                                              dismissHandler={this.props.dismissPlatformRegistrationErrorAlert} />
+                                              dismissHandler={this.dismissPlatformRegistrationErrorAlert.bind(this)} />
                             <FieldError error={informationModels.fetching_error} />
 
                             <Row>
@@ -237,7 +247,6 @@ export default reduxForm({
 })(
     connect(mapStateToProps, {
         changeModalState, fetchInformationModels: fetchAllInformationModels,
-        registerPlatform, dismissPlatformRegistrationSuccessAlert,
-        dismissPlatformRegistrationErrorAlert
+        registerPlatform, dismissAlert
     })(PlatformRegistrationModal)
 );
