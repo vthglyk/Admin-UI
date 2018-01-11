@@ -7,12 +7,12 @@ import PlatformConfigModal from "./platform-config-modal";
 import { AlertDismissable } from "../../../helpers/errors";
 import {
     fetchUserPlatforms, deletePlatform,
-    activatePlatformDeleteModal, deactivatePlatformDeleteModal,
-    activatePlatformConfigModal
+    activatePlatformModal, deactivatePlatformModal
 } from "../../../actions/platform-actions";
 import {
-    dismissAlert, DISMISS_PLATFORM_DELETION_SUCCESS_ALERT, DISMISS_PLATFORM_DELETION_ERROR_ALERT
-} from "../../../actions/dismiss-alerts-actions";
+    dismissAlert, DISMISS_PLATFORM_DELETION_ERROR_ALERT,
+    DISMISS_PLATFORM_DELETION_SUCCESS_ALERT, DEACTIVATE_PLATFORM_DELETE_MODAL
+} from "../../../actions";
 
 class PlatformList extends Component {
 
@@ -22,7 +22,7 @@ class PlatformList extends Component {
 
     handleDeletePlatform = () => {
         this.props.deletePlatform(this.props.platformDeleteModal.platformIdToDelete);
-        this.props.deactivatePlatformDeleteModal();
+        this.props.deactivatePlatformModal(DEACTIVATE_PLATFORM_DELETE_MODAL);
     };
 
     showPlatformDeleteModal = (platformIdToDelete, availablePlatforms,
@@ -32,7 +32,7 @@ class PlatformList extends Component {
                 <PlatformDeleteModal
                     platform={availablePlatforms[platformIdToDelete]}
                     deleteModalOpen={!!platformIdToDelete}
-                    closeDeleteModal={deactivatePlatformDeleteModal}
+                    closeModal={deactivatePlatformDeleteModal}
                     handleDeletePlatform={handleDeletePlatform} />
                 : null
         );
@@ -72,13 +72,12 @@ class PlatformList extends Component {
                         key={platform.id}
                         platform={platform}
                         informationModels={this.props.informationModels}
-                        openDeleteModal={this.props.activatePlatformDeleteModal}
-                        openConfigModal={this.props.activatePlatformConfigModal}/>
+                        openModal={this.props.activatePlatformModal} />
                 })}
 
                 {
                     this.showPlatformDeleteModal(platformIdToDelete, availablePlatforms,
-                        this.props.deactivatePlatformDeleteModal, this.handleDeletePlatform.bind(this))
+                        this.props.deactivatePlatformModal, this.handleDeletePlatform.bind(this))
                 }
 
                 {
@@ -104,8 +103,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     fetchUserPlatforms,
     deletePlatform,
-    activatePlatformDeleteModal,
-    deactivatePlatformDeleteModal,
-    activatePlatformConfigModal,
+    activatePlatformModal,
+    deactivatePlatformModal,
     dismissAlert
 })(PlatformList);

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Panel, Glyphicon, Button } from "react-bootstrap";
 import PlatformPanelBody from "./platform-panel-body";
+import {
+    ACTIVATE_PLATFORM_DELETE_MODAL, ACTIVATE_PLATFORM_CONFIG_MODAL
+} from "../../../actions";
 
 export default class CollapsiblePlatformPanel extends Component {
     constructor(props) {
@@ -27,11 +30,11 @@ export default class CollapsiblePlatformPanel extends Component {
     };
 
     handleOpenDeleteModal = () => {
-        this.props.openDeleteModal(this.props.platform.id);
+        this.props.openModal(ACTIVATE_PLATFORM_DELETE_MODAL, this.props.platform.id);
     };
 
     handleOpenConfigModal = () => {
-        this.props.openConfigModal(this.props.platform.id);
+        this.props.openModal(ACTIVATE_PLATFORM_CONFIG_MODAL, this.props.platform.id);
     };
 
     render() {

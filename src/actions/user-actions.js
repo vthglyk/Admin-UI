@@ -1,11 +1,7 @@
 import axios from "axios";
-import { ROOT_URL } from "../configuration";
-import { headers } from "./index";
+import {ROOT_URL} from "../configuration";
+import {FETCH_USER_ROLES, headers, REGISTER_USER, USER_LOGIN, USER_LOGOUT} from "./index";
 
-export const FETCH_USER_ROLES = "FETCH_USER_ROLES";
-export const REGISTER_USER = "REGISTER_USER";
-export const USER_LOGIN = "USER_LOGIN";
-export const USER_LOGOUT = "USER_LOGOUT";
 
 axios.defaults.withCredentials = true;
 

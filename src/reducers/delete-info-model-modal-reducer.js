@@ -1,6 +1,7 @@
 import {
-    ACTIVATE_INFO_MODEL_DELETE_MODAL, DEACTIVATE_INFO_MODEL_DELETE_MODAL
-} from "../actions/info-model-actions";
+    DEACTIVATE_INFO_MODEL_DELETE_MODAL
+} from "../actions/index";
+import {ACTIVATE_INFO_MODEL_DELETE_MODAL} from "../actions";
 
 const INITIAL_STATE = { infoModelIdToDelete : "" };
 

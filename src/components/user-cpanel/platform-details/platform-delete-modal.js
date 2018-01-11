@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { DEACTIVATE_PLATFORM_DELETE_MODAL } from "../../../actions";
 
-const PlatformDeleteModal = ({ platform, deleteModalOpen, closeDeleteModal, handleDeletePlatform }) => {
+const PlatformDeleteModal = ({ platform, deleteModalOpen, closeModal, handleDeletePlatform }) => {
+
+    const handleCloseModal = () => {
+        closeModal(DEACTIVATE_PLATFORM_DELETE_MODAL);
+    };
 
     // This function is used in order to preserve the animation on closing the modal
     const modalContent = () => {
@@ -20,7 +25,7 @@ const PlatformDeleteModal = ({ platform, deleteModalOpen, closeDeleteModal, hand
                         <Button type="button" bsStyle="danger"
                                 onClick={handleDeletePlatform}>Verify Deletion</Button>
                         <Button type="button" bsStyle="default"
-                                onClick={closeDeleteModal}>Close</Button>
+                                onClick={handleCloseModal}>Close</Button>
                     </Modal.Footer>
                 </Fragment> :
                 null
@@ -28,7 +33,7 @@ const PlatformDeleteModal = ({ platform, deleteModalOpen, closeDeleteModal, hand
     };
 
     return(
-        <Modal show={deleteModalOpen} onHide={closeDeleteModal}>
+        <Modal show={deleteModalOpen} onHide={handleCloseModal}>
             {modalContent()}
         </Modal>
     );

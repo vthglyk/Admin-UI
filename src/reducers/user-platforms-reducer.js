@@ -1,11 +1,16 @@
 import _ from "lodash";
 import {
-    FETCH_USER_PLATFORMS} from "../actions/platform-actions";
+    REMOVE_PLATFORM_REGISTRATION_ERRORS
+} from "../actions/index";
 import {
-    DISMISS_PLATFORM_DELETION_SUCCESS_ALERT, DISMISS_PLATFORM_DELETION_ERROR_ALERT,
-    DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT, DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT
-} from "../actions/dismiss-alerts-actions";
-import {DELETE_PLATFORM, REGISTER_PLATFORM} from "../actions/platform-actions";
+    DISMISS_PLATFORM_DELETION_ERROR_ALERT,
+    } from "../actions/index";
+import {DELETE_PLATFORM} from "../actions/index";
+import {
+    DISMISS_PLATFORM_DELETION_SUCCESS_ALERT,
+    DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT, DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT, FETCH_USER_PLATFORMS,
+    REGISTER_PLATFORM
+} from "../actions";
 
 export default function(state = {}, action) {
     switch(action.type) {
@@ -57,22 +62,14 @@ export default function(state = {}, action) {
             else {
                 const response = JSON.parse(action.payload.request.response);
                 const { id, name } = response;
-
                 const successfulPlatformRegistration = `Registration of platform "${name}" was successful!`;
-                const errors = [
-                    "id_error", "name_error", "description_error",
-                    "interworkingServiceUrl_error", "informationModel_error", "type_error", "platformRegistrationError"
-                ];
-
-                let newState = {...state};
-                for (let i = 0; i < errors.length; i++)
-                   newState =  _.omit(newState, errors[i]);
 
                 let newAvailablePlatforms = {
                     ...state.availablePlatforms,
                     [id] : response
                 };
-                return { ...newState, availablePlatforms : newAvailablePlatforms, successfulPlatformRegistration };
+
+                return { ...removeErrors(state), availablePlatforms : newAvailablePlatforms, successfulPlatformRegistration };
             }
         case DELETE_PLATFORM:
             if (action.error) {
@@ -105,7 +102,22 @@ export default function(state = {}, action) {
             return _.omit(state, "successfulPlatformDeletion");
         case DISMISS_PLATFORM_DELETION_ERROR_ALERT:
             return _.omit(state, "platformDeletionError");
+        case REMOVE_PLATFORM_REGISTRATION_ERRORS:
+            return removeErrors(state);
         default:
             return state;
     }
 }
+
+const removeErrors = (state) => {
+    const errors = [
+        "id_error", "name_error", "description_error",
+        "interworkingServiceUrl_error", "informationModel_error", "type_error", "platformRegistrationError"
+    ];
+
+    let newState = {...state};
+    for (let i = 0; i < errors.length; i++)
+        newState =  _.omit(newState, errors[i]);
+
+    return newState;
+};

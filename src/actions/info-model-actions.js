@@ -1,16 +1,12 @@
 import axios from "axios";
-import { ROOT_URL } from "../configuration";
-import { headers } from "./index";
+import {ROOT_URL} from "../configuration";
+import {
+    ACTIVATE_INFO_MODEL_DELETE_MODAL, DEACTIVATE_INFO_MODEL_DELETE_MODAL, DELETE_INFO_MODEL,
+    FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS, headers, REGISTER_INFO_MODEL,
+    UPLOADING_INFO_MODEL_PROGRESS
+} from "./index";
 
 axios.defaults.withCredentials = true;
-
-export const FETCH_ALL_INFORMATION_MODELS = "FETCH_ALL_INFORMATION_MODELS";
-export const FETCH_USER_INFORMATION_MODELS = "FETCH_USER_INFORMATION_MODELS";
-export const REGISTER_INFO_MODEL = "REGISTER_INFO_MODEL";
-export const UPLOADING_INFO_MODEL_PROGRESS = "UPLOADING_INFO_MODEL_PROGRESS";
-export const DELETE_INFO_MODEL = "DELETE_INFO_MODEL";
-export const ACTIVATE_INFO_MODEL_DELETE_MODAL = "ACTIVATE_INFO_MODEL_DELETE_MODAL";
-export const DEACTIVATE_INFO_MODEL_DELETE_MODAL = "DEACTIVATE_INFO_MODEL_DELETE_MODAL";
 
 export function fetchAllInformationModels() {
     const url = `${ROOT_URL}/user/cpanel/list_all_info_models`;

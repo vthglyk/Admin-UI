@@ -1,9 +1,8 @@
 import {
-    GET_PLATFORM_CONFIGURATION,
-    ACTIVATE_PLATFORM_CONFIG_MODAL,
     DEACTIVATE_PLATFORM_CONFIG_MODAL
-} from "../actions/platform-actions";
-import { DISMISS_PLATFORM_CONFIG_ERROR_ALERT } from "../actions/dismiss-alerts-actions";
+} from "../actions/index";
+import { DISMISS_PLATFORM_CONFIG_ERROR_ALERT } from "../actions/index";
+import {ACTIVATE_PLATFORM_CONFIG_MODAL, GET_PLATFORM_CONFIGURATION} from "../actions";
 
 const INITIAL_STATE = { platformId : "" };
 

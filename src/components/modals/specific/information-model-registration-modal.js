@@ -12,10 +12,10 @@ import {
     validateName, validateUri, validateRdfExtension
 } from "../../../components/user-cpanel/validation/information-model-registration-validation";
 import {
-    changeModalState} from "../../../actions";
+    changeModalState, DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT
+} from "../../../actions";
 import {
-    dismissAlert, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT, DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT
-} from "../../../actions/dismiss-alerts-actions";
+    dismissAlert, removeErrors, REMOVE_INFO_MODEL_REGISTRATION_ERRORS } from "../../../actions/index";
 import {registerInfoModel, uploadingInfoModelProgress} from "../../../actions/info-model-actions";
 
 class InformationModelRegistrationModal extends Component {
@@ -27,6 +27,8 @@ class InformationModelRegistrationModal extends Component {
     close() {
         this.props.changeModalState(INFORMATION_MODEL_REGISTRATION_MODAL, false);
         this.props.reset();
+        this.props.removeErrors(REMOVE_INFO_MODEL_REGISTRATION_ERRORS);
+        this.props.uploadingInfoModelProgress(0)
     }
 
 
@@ -36,7 +38,6 @@ class InformationModelRegistrationModal extends Component {
             (res) => {
                 if (res.status === 201) {
                     this.close();
-                    this.props.uploadingInfoModelProgress(0);
                 }
 
             },
@@ -235,6 +236,6 @@ export default reduxForm({
 })(
     connect(mapStateToProps, {
         changeModalState, registerInfoModel, uploadingInfoModelProgress,
-        dismissAlert
+        dismissAlert, removeErrors
     })(InformationModelRegistrationModal)
 );

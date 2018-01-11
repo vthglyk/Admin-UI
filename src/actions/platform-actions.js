@@ -1,18 +1,12 @@
 import axios from "axios";
-import { ROOT_URL } from "../configuration";
-import { headers } from "./index";
-
+import {ROOT_URL} from "../configuration";
+import {
+    ACTIVATE_PLATFORM_CONFIG_MODAL, ACTIVATE_PLATFORM_DELETE_MODAL, DEACTIVATE_PLATFORM_CONFIG_MODAL,
+    DEACTIVATE_PLATFORM_DELETE_MODAL, DELETE_PLATFORM, FETCH_USER_PLATFORMS, GET_PLATFORM_CONFIGURATION, headers,
+    REGISTER_PLATFORM
+} from "./index";
 
 axios.defaults.withCredentials = true;
-
-export const FETCH_USER_PLATFORMS = "FETCH_USER_PLATFORMS";
-export const REGISTER_PLATFORM = "REGISTER_PLATFORM";
-export const GET_PLATFORM_CONFIGURATION = "GET_PLATFORM_CONFIGURATION";
-export const DELETE_PLATFORM = "DELETE_PLATFORM";
-export const ACTIVATE_PLATFORM_DELETE_MODAL = "ACTIVATE_PLATFORM_DELETE_MODAL";
-export const DEACTIVATE_PLATFORM_DELETE_MODAL = "DEACTIVATE_PLATFORM_DELETE_MODAL";
-export const ACTIVATE_PLATFORM_CONFIG_MODAL = "ACTIVATE_PLATFORM_CONFIG_MODAL";
-export const DEACTIVATE_PLATFORM_CONFIG_MODAL = "DEACTIVATE_PLATFORM_CONFIG_MODAL";
 
 export function fetchUserPlatforms() {
     const url = `${ROOT_URL}/user/cpanel/list_user_platforms`;
@@ -100,28 +94,15 @@ export function deletePlatform(platformId) {
     };
 }
 
-export function activatePlatformDeleteModal(platformId) {
+export function activatePlatformModal(type, platformId) {
     return {
-        type: ACTIVATE_PLATFORM_DELETE_MODAL,
+        type: type,
         payload: platformId
     };
 }
 
-export function deactivatePlatformDeleteModal() {
+export function deactivatePlatformModal(type) {
     return {
-        type: DEACTIVATE_PLATFORM_DELETE_MODAL,
-    };
-}
-
-export function activatePlatformConfigModal(platformId) {
-    return {
-        type: ACTIVATE_PLATFORM_CONFIG_MODAL,
-        payload: platformId
-    };
-}
-
-export function deactivatePlatformConfigModal() {
-    return {
-        type: DEACTIVATE_PLATFORM_CONFIG_MODAL,
+        type: type,
     };
 }

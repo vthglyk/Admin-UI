@@ -9,18 +9,19 @@ import { InterworkingService, Platform } from "../../../helpers/object-definitio
 import { getPlatformRegistrationValidity } from "../../../selectors";
 import { FieldError, AlertDismissable } from "../../../helpers/errors";
 import { getValidationState } from "../../../components/user-cpanel/validation/helpers";
-import { changeModalState} from "../../../actions";
 import {
-    dismissAlert,
-    DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT,
-    DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT
-} from "../../../actions/dismiss-alerts-actions";
+    changeModalState, DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT, DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT,
+    REMOVE_PLATFORM_REGISTRATION_ERRORS,
+    removeErrors
+} from "../../../actions";
+import {
+    dismissAlert} from "../../../actions/index";
 import {
     validateId, validateName, validateDescription,
     validateInterworkingInterfaceUrl, validateInformationModel
 } from "../../../components/user-cpanel/validation/platform-registration-validation";
-import {fetchAllInformationModels} from "../../../actions/info-model-actions";
-import {registerPlatform} from "../../../actions/platform-actions";
+import { fetchAllInformationModels } from "../../../actions/info-model-actions";
+import { registerPlatform} from "../../../actions/platform-actions";
 
 class PlatformRegistrationModal extends Component {
 
@@ -50,6 +51,7 @@ class PlatformRegistrationModal extends Component {
     close() {
         this.props.changeModalState(PLATFORM_REGISTRATION_MODAL, false);
         this.props.reset();
+        this.props.removeErrors(REMOVE_PLATFORM_REGISTRATION_ERRORS);
     }
 
     informationModels = () => {
@@ -219,7 +221,7 @@ class PlatformRegistrationModal extends Component {
 function validate(values) {
     const errors = {};
     const validationFunctions = {
-        "id" : validateId,
+        // "id" : validateId,
         "name" : validateName,
         "description" : validateDescription,
         "interworkingServiceUrl" : validateInterworkingInterfaceUrl,
@@ -247,6 +249,6 @@ export default reduxForm({
 })(
     connect(mapStateToProps, {
         changeModalState, fetchInformationModels: fetchAllInformationModels,
-        registerPlatform, dismissAlert
+        registerPlatform, dismissAlert, removeErrors
     })(PlatformRegistrationModal)
 );

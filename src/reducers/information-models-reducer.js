@@ -1,13 +1,15 @@
 import {
-    DELETE_INFO_MODEL} from "../actions/info-model-actions";
+    DELETE_INFO_MODEL} from "../actions/index";
 import {
-    DISMISS_INFO_MODEL_DELETION_ERROR_ALERT, DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT,
-    DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT, DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT
-} from "../actions/dismiss-alerts-actions";
+    DISMISS_INFO_MODEL_DELETION_ERROR_ALERT} from "../actions/index";
 import {
-    FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS,
-    REGISTER_INFO_MODEL, UPLOADING_INFO_MODEL_PROGRESS
-} from "../actions/info-model-actions";
+    UPLOADING_INFO_MODEL_PROGRESS
+} from "../actions/index";
+import {
+    DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT, DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT,
+    DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT, FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS,
+    REGISTER_INFO_MODEL, REMOVE_INFO_MODEL_REGISTRATION_ERRORS
+} from "../actions";
 
 export default function(state = {}, action) {
     switch(action.type) {
@@ -52,15 +54,7 @@ export default function(state = {}, action) {
             else {
                 const response = JSON.parse(action.payload.request.response);
                 const { id, name } = response;
-
                 const successfulInfoModelRegistration = `Registration of information model "${name}" was successful!`;
-                const errors = [
-                    "name_error", "uri_error", "rdf_error", "infoModelRegistrationError"
-                ];
-
-                let newState = {...state};
-                for (let i = 0; i < errors.length; i++)
-                    newState =  _.omit(newState, errors[i]);
 
                 let newAvailableInfoModels = {
                     ...state.availableInfoModels,
@@ -72,7 +66,7 @@ export default function(state = {}, action) {
                     [id] : response
                 };
                 return {
-                    ...newState,
+                    ...removeErrors(state),
                     availableInfoModels : newAvailableInfoModels,
                     availableUserInfoModels : newAvailableUserInfoModels,
                     successfulInfoModelRegistration,
@@ -113,7 +107,21 @@ export default function(state = {}, action) {
             return _.omit(state, "successfulInfoModelDeletion");
         case DISMISS_INFO_MODEL_DELETION_ERROR_ALERT:
             return _.omit(state, "infoModelDeletionError");
+        case REMOVE_INFO_MODEL_REGISTRATION_ERRORS:
+            return {...removeErrors(state)}
         default:
             return state;
     }
 }
+
+const removeErrors = (state) => {
+    const errors = [
+        "name_error", "uri_error", "rdf_error", "infoModelRegistrationError"
+    ];
+
+    let newState = {...state};
+    for (let i = 0; i < errors.length; i++)
+        newState =  _.omit(newState, errors[i]);
+
+    return newState;
+};

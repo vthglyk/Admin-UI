@@ -9,8 +9,8 @@ import {
     activateInfoModelDeleteModal, deactivateInfoModelDeleteModal
 } from "../../../actions/info-model-actions";
 import {
-    dismissAlert, DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT, DISMISS_INFO_MODEL_DELETION_ERROR_ALERT
-} from "../../../actions/dismiss-alerts-actions";
+    dismissAlert} from "../../../actions/index";
+import {DISMISS_INFO_MODEL_DELETION_ERROR_ALERT, DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT} from "../../../actions";
 
 class InformationModelList extends Component {
 

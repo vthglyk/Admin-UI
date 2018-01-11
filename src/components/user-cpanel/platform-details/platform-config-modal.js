@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Button, Modal, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
-import { getPlatformConfiguration, deactivatePlatformConfigModal } from "../../../actions/platform-actions";
-import { dismissAlert, DISMISS_PLATFORM_CONFIG_ERROR_ALERT } from "../../../actions/dismiss-alerts-actions";
+import { getPlatformConfiguration, deactivatePlatformModal } from "../../../actions/platform-actions";
+import { dismissAlert} from "../../../actions/index";
 import { getValidationState, isEmpty } from "../validation/helpers";
 import { validateTokenValidity } from "../validation/platform-config-validation";
 import { FieldError } from "../../../helpers/errors";
@@ -11,6 +11,7 @@ import { getPlatformConfigurationValidity } from "../../../selectors";
 import RFReactSelect from "../../../helpers/redux-form-react-selector-integrator";
 import { PlatformConfigurationMessage } from "../../../helpers/object-definitions";
 import { AlertDismissable } from "../../../helpers/errors";
+import { DISMISS_PLATFORM_CONFIG_ERROR_ALERT, DEACTIVATE_PLATFORM_CONFIG_MODAL } from "../../../actions";
 
 class PlatformConfigModal extends Component {
 
@@ -30,7 +31,7 @@ class PlatformConfigModal extends Component {
     }
 
     close() {
-        this.props.deactivatePlatformConfigModal();
+        this.props.deactivatePlatformModal(DEACTIVATE_PLATFORM_CONFIG_MODAL);
         this.props.reset();
     }
 
@@ -316,5 +317,5 @@ export default reduxForm({
     form: 'PlatformConfigurationForm',
     validate
 })(
-    connect(mapStateToProps, { getPlatformConfiguration, deactivatePlatformConfigModal, dismissAlert })(PlatformConfigModal)
+    connect(mapStateToProps, { getPlatformConfiguration, deactivatePlatformModal, dismissAlert })(PlatformConfigModal)
 );
