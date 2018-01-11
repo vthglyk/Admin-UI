@@ -19,3 +19,7 @@ export function lengthValidation(fieldName, length, min, max) {
         return null;
     }
 }
+
+export function isEmpty(value) {
+    return value ? null : "This field is required";
+}

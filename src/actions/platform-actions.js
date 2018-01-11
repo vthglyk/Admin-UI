@@ -7,6 +7,7 @@ axios.defaults.withCredentials = true;
 
 export const FETCH_USER_PLATFORMS = "FETCH_USER_PLATFORMS";
 export const REGISTER_PLATFORM = "REGISTER_PLATFORM";
+export const GET_PLATFORM_CONFIGURATION = "GET_PLATFORM_CONFIGURATION";
 export const DELETE_PLATFORM = "DELETE_PLATFORM";
 export const ACTIVATE_PLATFORM_DELETE_MODAL = "ACTIVATE_PLATFORM_DELETE_MODAL";
 export const DEACTIVATE_PLATFORM_DELETE_MODAL = "DEACTIVATE_PLATFORM_DELETE_MODAL";
@@ -48,6 +49,31 @@ export function registerPlatform(platform, cb) {
 
     return {
         type: REGISTER_PLATFORM,
+        payload: request
+    };
+}
+
+export function getPlatformConfiguration(platformConfig, cb) {
+    const url = `${ROOT_URL}/user/cpanel/get_platform_config`;
+
+    const config = {
+        url: url,
+        method: 'post',
+        data: platformConfig,
+        headers: headers,
+        responseType: 'arraybuffer'
+    };
+
+    const request = axios.request(config)
+        .then(res => {
+            cb(res);
+            return res;
+        }).catch(res => {
+            return({...res, error: true});
+        });
+
+    return {
+        type: GET_PLATFORM_CONFIGURATION,
         payload: request
     };
 }

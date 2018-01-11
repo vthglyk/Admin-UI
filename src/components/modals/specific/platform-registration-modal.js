@@ -75,8 +75,7 @@ class PlatformRegistrationModal extends Component {
 
         this.props.registerPlatform(newPlatform, (res) => {
             if (res.status === 201) {
-                this.props.changeModalState(PLATFORM_REGISTRATION_MODAL, false);
-                this.props.reset();
+                this.close();
             }
 
         });

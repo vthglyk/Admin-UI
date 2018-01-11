@@ -35,8 +35,7 @@ class InformationModelRegistrationModal extends Component {
             props,
             (res) => {
                 if (res.status === 201) {
-                    this.props.changeModalState(INFORMATION_MODEL_REGISTRATION_MODAL, false);
-                    this.props.reset();
+                    this.close();
                     this.props.uploadingInfoModelProgress(0);
                 }
 

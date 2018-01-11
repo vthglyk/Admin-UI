@@ -35,7 +35,7 @@ class UserRegistrationModal extends Component {
         });
     };
 
-    renderInputField(field) {
+    renderInputField = (field) => {
         const { input, type, placeholder, icon } = field;
 
         return (
@@ -49,7 +49,7 @@ class UserRegistrationModal extends Component {
                         placeholder={placeholder} />
                 </InputGroup>
         );
-    }
+    };
 
     render() {
         const { userRegistrationState : { validationErrors, errorMessage },

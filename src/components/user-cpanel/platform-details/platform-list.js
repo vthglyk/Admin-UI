@@ -8,7 +8,7 @@ import { AlertDismissable } from "../../../helpers/errors";
 import {
     fetchUserPlatforms, deletePlatform,
     activatePlatformDeleteModal, deactivatePlatformDeleteModal,
-    activatePlatformConfigModal, deactivatePlatformConfigModal
+    activatePlatformConfigModal
 } from "../../../actions/platform-actions";
 import {
     dismissPlatformDeletionSuccessAlert, dismissPlatformDeletionErrorAlert
@@ -25,11 +25,6 @@ class PlatformList extends Component {
         this.props.deactivatePlatformDeleteModal();
     };
 
-    handleConfigPlatform = () => {
-        console.log("handleConfigPlatform");
-        this.props.deactivatePlatformConfigModal();
-    };
-
     showPlatformDeleteModal = (platformIdToDelete, availablePlatforms,
                                deactivatePlatformDeleteModal, handleDeletePlatform) => {
         return (
@@ -43,15 +38,12 @@ class PlatformList extends Component {
         );
     };
 
-    showPlatformConfigModal = (platformId, availablePlatforms,
-                               deactivatePlatformConfigModal, handleDeletePlatform) => {
+    showPlatformConfigModal = (platformId, availablePlatforms) => {
         return (
             availablePlatforms ?
                 <PlatformConfigModal
                     platform={availablePlatforms[platformId]}
-                    configModalOpen={!!platformId}
-                    closeConfigModal={deactivatePlatformConfigModal}
-                    handleConfigPlatform={handleDeletePlatform} />
+                    configModalOpen={!!platformId}/>
                 : null
         );
     };
@@ -82,8 +74,7 @@ class PlatformList extends Component {
                 }
 
                 {
-                    this.showPlatformConfigModal(platformId, availablePlatforms,
-                        this.props.deactivatePlatformConfigModal, this.handleConfigPlatform.bind(this))
+                    this.showPlatformConfigModal(platformId, availablePlatforms)
                 }
 
 
@@ -108,7 +99,6 @@ export default connect(mapStateToProps, {
     activatePlatformDeleteModal,
     deactivatePlatformDeleteModal,
     activatePlatformConfigModal,
-    deactivatePlatformConfigModal,
     dismissPlatformDeletionSuccessAlert,
     dismissPlatformDeletionErrorAlert
 })(PlatformList);

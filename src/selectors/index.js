@@ -3,6 +3,7 @@ import _ from "lodash";
 
 const getPlatformRegistrationForm = (state) => state.form.PlatformRegistrationForm;
 const getInfoModelRegistrationForm = (state) => state.form.InformationModelRegistrationForm;
+const getPlatformConfigurationForm = (state) => state.form.PlatformConfigurationForm;
 
 const checkForm =  (form) => {
     const { syncErrors, anyTouched } = form;
@@ -19,4 +20,8 @@ export const getPlatformRegistrationValidity = createSelector(
 
 export const getInfoModelRegistrationValidity = createSelector(
     [ getInfoModelRegistrationForm ], checkForm
+);
+
+export const getPlatformConfigurationValidity = createSelector(
+    [ getPlatformConfigurationForm ], checkForm
 );
