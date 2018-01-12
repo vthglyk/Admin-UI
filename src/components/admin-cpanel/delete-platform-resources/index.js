@@ -43,7 +43,7 @@ export default class DeletePlatformResources extends Component {
         const url = `${ROOT_URL}/admin/cpanel/delete_platform_resources`;
         const customHeaders = {...headers, ['Content-Type']: 'application/x-www-form-urlencoded; charset=UTF-8'};
         let formData = new FormData();
-        formData.append('platformId', this.state.platformId);
+        formData.append('infoModelIdToDelete', this.state.infoModelIdToDelete);
 
 
         const config = {
@@ -55,7 +55,7 @@ export default class DeletePlatformResources extends Component {
 
         axios.request(config)
             .then(() => {
-                const successMessage = `The resources of platform "${this.state.platformId}" were successfully cleared`;
+                const successMessage = `The resources of platform "${this.state.infoModelIdToDelete}" were successfully cleared`;
                 this.setState({
                     platformId : "",
                     successMessage : successMessage,
@@ -89,7 +89,7 @@ export default class DeletePlatformResources extends Component {
                     <FormGroup>
                         <FormControl
                             placeholder="Platform Id"
-                            value={this.state.platformId}
+                            value={this.state.infoModelIdToDelete}
                             onChange={this.onChange}
                         />
                         <HelpBlock>Id of the platform, the resources of which will be deleted</HelpBlock>
