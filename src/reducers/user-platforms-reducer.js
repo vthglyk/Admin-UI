@@ -1,15 +1,7 @@
-import _ from "lodash";
-import {
-    REMOVE_PLATFORM_REGISTRATION_ERRORS
-} from "../actions/index";
-import {
-    DISMISS_PLATFORM_DELETION_ERROR_ALERT,
-    } from "../actions/index";
-import {DELETE_PLATFORM} from "../actions/index";
 import {
     DISMISS_PLATFORM_DELETION_SUCCESS_ALERT,
     DISMISS_PLATFORM_REGISTRATION_ERROR_ALERT, DISMISS_PLATFORM_REGISTRATION_SUCCESS_ALERT, FETCH_USER_PLATFORMS,
-    REGISTER_PLATFORM
+    REGISTER_PLATFORM, DELETE_PLATFORM, REMOVE_PLATFORM_REGISTRATION_ERRORS, DISMISS_PLATFORM_DELETION_ERROR_ALERT
 } from "../actions";
 
 export default function(state = {}, action) {
@@ -54,9 +46,9 @@ export default function(state = {}, action) {
                         newState.type_error = message.pl_reg_error_isEnabler;
 
                     newState.platformRegistrationError = message.platformRegistrationError;
-                    return { ...state, ...newState};
+                    return { ...removeErrors(state), ...newState};
                 } else {
-                    return {...state, platformRegistrationError: "Network Error: Could not contact server"};
+                    return {...removeErrors(state), platformRegistrationError: "Network Error: Could not contact server"};
                 }
             }
             else {

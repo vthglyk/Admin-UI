@@ -1,9 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
+import FederationRegistrationModal from "../../../containers/federation-registration-modal";
+import FederationList from "../../../containers/federation-list";
 
-const FederationList = () => {
+const federationDetails = () => {
     return(
-        <h3>Federation List</h3>
+        <Fragment>
+            <FederationRegistrationModal />
+            <FederationList />
+        </Fragment>
     );
 };
 
-export default FederationList;
+export default federationDetails;

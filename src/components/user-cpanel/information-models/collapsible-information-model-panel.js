@@ -31,7 +31,7 @@ export default class CollapsibleInformationModelPanel extends Component {
         const { infoModel } = this.state;
 
         return(
-            <Panel id="id" bsStyle="primary" className="platform-panel-entry"
+            <Panel id="id" bsStyle="primary" className="info-model-panel-entry"
                    expanded={this.state.open} onToggle={() => {}}>
                 <Panel.Heading onClick={this.togglePanel}>
                     <Panel.Title componentClass="h3">

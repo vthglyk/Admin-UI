@@ -1,11 +1,5 @@
 import {
-    DELETE_INFO_MODEL} from "../actions/index";
-import {
-    DISMISS_INFO_MODEL_DELETION_ERROR_ALERT} from "../actions/index";
-import {
-    UPLOADING_INFO_MODEL_PROGRESS
-} from "../actions/index";
-import {
+    DELETE_INFO_MODEL, DISMISS_INFO_MODEL_DELETION_ERROR_ALERT, UPLOADING_INFO_MODEL_PROGRESS,
     DISMISS_INFO_MODEL_DELETION_SUCCESS_ALERT, DISMISS_INFO_MODEL_REGISTRATION_ERROR_ALERT,
     DISMISS_INFO_MODEL_REGISTRATION_SUCCESS_ALERT, FETCH_ALL_INFORMATION_MODELS, FETCH_USER_INFORMATION_MODELS,
     REGISTER_INFO_MODEL, REMOVE_INFO_MODEL_REGISTRATION_ERRORS
@@ -43,10 +37,10 @@ export default function(state = {}, action) {
                         newState.rdf_error = message.info_model_reg_error_rdf;
 
                     newState.infoModelRegistrationError = message.error;
-                    return { ...state, ...newState, completed: true};
+                    return { ...removeErrors(state), ...newState, completed: true};
                 } else {
                     return {
-                        ...state,
+                        ...removeErrors(state),
                         infoModelRegistrationError: "Network Error: Could not contact server",
                         completed: true};
                 }
@@ -108,7 +102,7 @@ export default function(state = {}, action) {
         case DISMISS_INFO_MODEL_DELETION_ERROR_ALERT:
             return _.omit(state, "infoModelDeletionError");
         case REMOVE_INFO_MODEL_REGISTRATION_ERRORS:
-            return {...removeErrors(state)}
+            return {...removeErrors(state)};
         default:
             return state;
     }

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Header from "../user-cpanel/header";
+import Header from "../../containers/cpanel-header";
 import Main from "./main";
 
 const AdminControlPanel = (props) => {
