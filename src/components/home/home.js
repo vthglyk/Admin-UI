@@ -6,8 +6,8 @@ import Footer from "./footer";
 const Home = (props) => {
     return (
         <Fragment>
-            <Header />
-            <UserManagement history={props.history}/>
+            <Header history={props.history} />
+            <UserManagement history={props.history} />
             <Footer />
         </Fragment>
     );

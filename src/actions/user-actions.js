@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ROOT_URL} from "../configuration";
+import {USER_CPANEL_URL, ROOT_URL, ADMIN_CPANEL_URL} from "../configuration";
 import {FETCH_USER_ROLES, headers, REGISTER_USER, USER_LOGIN, USER_LOGOUT} from "./index";
 
 
@@ -27,12 +27,17 @@ export function registerUser(props, cb) {
     };
 }
 
-export function userLogin(props, cb) {
-    const url = `${ROOT_URL}/user/login`;
+export function userLogin(props, redirect_on_success, cb) {
+    let url = "";
     const customHeaders = {...headers, ['Content-Type']: 'application/x-www-form-urlencoded; charset=UTF-8'};
     let formData = new FormData();
     formData.append("username", props.username);
     formData.append("password", props.password);
+
+    if (redirect_on_success === USER_CPANEL_URL)
+        url = `${ROOT_URL}/user/login`;
+    else if (redirect_on_success === ADMIN_CPANEL_URL)
+        url = `${ROOT_URL}/admin/login`;
 
     const config = {
         url: url,

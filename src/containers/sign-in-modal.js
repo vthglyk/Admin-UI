@@ -5,10 +5,17 @@ import { Modal, Button, FormControl, InputGroup, Glyphicon } from "react-bootstr
 import { LOGIN_MODAL } from "../reducers/modal-reducer";
 import { changeModalState } from "../actions/index";
 import { FieldError } from "../helpers/errors";
-import { CPANEL_URL } from "../configuration/index";
-import {userLogin} from "../actions/user-actions";
+import { userLogin } from "../actions/user-actions";
 
 class SignInModal extends Component {
+
+    constructor() {
+        super();
+
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
     open() {
         this.props.changeModalState(LOGIN_MODAL, true)
@@ -19,18 +26,18 @@ class SignInModal extends Component {
     }
 
     onSubmit(props) {
-        this.props.userLogin(props, (res) => {
+        this.props.userLogin(props, this.props.redirect_on_success, (res) => {
             const pattern = new RegExp('error');
 
             if (!pattern.test(res.request.responseURL)) {
                 this.props.changeModalState(LOGIN_MODAL, false);
-                this.props.history.push(CPANEL_URL);
+                this.props.history.push(this.props.redirect_on_success);
             }
 
         });
     }
 
-    renderInputField(field) {
+    renderInputField = (field) => {
         const { input, type, placeholder, icon } = field;
         return (
             <InputGroup>
@@ -43,25 +50,25 @@ class SignInModal extends Component {
                     placeholder={placeholder} />
             </InputGroup>
         );
-    }
+    };
 
     render() {
-        const { handleSubmit, modalState, userLoginState } = this.props;
+        const { handleSubmit, modalState, userLoginState, buttonTitle, buttonClass, buttonBsStyle } = this.props;
 
         return(
             <Fragment>
                 <Button
-                    className="login button"
-                    bsStyle="primary"
-                    onClick={this.open.bind(this)}>
-                    Sign In
+                    className={buttonClass ? buttonClass : "login button"}
+                    bsStyle={buttonBsStyle}
+                    onClick={this.open}>
+                    {buttonTitle}
                 </Button>
 
-                <Modal show={modalState[LOGIN_MODAL]} onHide={this.close.bind(this)}>
+                <Modal show={modalState[LOGIN_MODAL]} onHide={this.close}>
                     <Modal.Header closeButton>
                         <Modal.Title>Sign In</Modal.Title>
                     </Modal.Header>
-                    <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                    <form onSubmit={handleSubmit(this.onSubmit)}>
                         <Modal.Body>
                             <Field
                                 type="text"
